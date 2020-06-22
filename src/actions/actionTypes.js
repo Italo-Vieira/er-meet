@@ -1,0 +1,3 @@
+export const CLICK_UPDATE_VALUE = 'CLICK_UPDATE_VALUE';
+export const MEETING_FOUND = 'MEETING_FOUND';
+export const USER_JOINED = 'USER_JOINED';
