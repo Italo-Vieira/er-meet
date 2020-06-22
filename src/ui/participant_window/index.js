@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import {FiMonitor} from 'react-icons/fi';
-import { BsMic } from 'react-icons/bs';
+import { BsMic, BsMicMute } from 'react-icons/bs';
 
-export class ParticipantWindow extends React.Component {
+export class ParticipantWindow extends Component { 
     render() {
+        const {mute, name, onMuteClick, id} = this.props;
+        const MuteIcon = mute ? BsMicMute: BsMic;
         return <div className="userWindow2">
             <div className="userWindow">
                 <FiMonitor className="userIcon"></FiMonitor>
-                <span className='userName'>{this.props.name}</span>
+                <span className='userName'>{name}</span>
             </div>
-            <div class="micIcon">
-                <BsMic class="actualMicIcon"></BsMic>
-            </div>
+            <button onClick={()=> {onMuteClick(id, !mute)}} className="micIcon">
+                <MuteIcon  className="actualMicIcon"></MuteIcon>
+            </button>
         </div>;
     }
 }

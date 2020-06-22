@@ -16,11 +16,11 @@ code {
 }
 
 .participantList {
-    position: absolute;
     right: 0px;
  /* background: black;
     opacity: 80%;
     color: white;
+    position: absolute;
  */
     background: #F5F1ED;
     height: 100vh;
@@ -63,6 +63,7 @@ code {
 }
 
 .bottomBar {
+  display: flex;
   height: 100px;
   background: #252323;
 }
@@ -76,4 +77,67 @@ code {
   color: #c40000;
   width: 1.3em;
   height: 1.3em;
+}
+
+.endMeetingButton {
+	box-shadow:inset 0px 0px 0px -10px #cf866c;
+	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+	background-color:#d0451b;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+  padding:11px 24px;
+  border:none;
+  text-decoration:none;
+  margin: auto;
+  height: 3em;
+  min-width: 10em;
+}
+.endMeetingButton:hover {
+	background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+	background-color:#bc3315;
+}
+.endMeetingButton:active {
+	position:relative;
+	top:1px;
+}
+
+.endMeetingDiv {
+  display: flex;
+  width: 300px;
+}
+
+.selfMute {
+  color: red;
+  width: 100%;
+  height: 100%;
+}
+
+.selfMuteDiv {
+  padding: 10px 0px 10px 35px;
+  max-width: 100px;
+  display: block;
+  min-width: 100px;
+}
+
+.selfMuteButton {
+  text-align: center;
+  width: 76%;
+  height: 100%;
+  display: block;
+  padding: 20px;
+  background: #252323;
+  border: none;
+}
+
+.selfMuteText {
+  font-family: Arial;
+  color: white;
+}
+.selfMuteButton:active {
+	position:relative;
+	top:1px;
 }

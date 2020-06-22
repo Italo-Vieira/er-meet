@@ -35,15 +35,3 @@ export const conferenceFoundReducer = (state = initialState, action) => {
             return state;
     }
 };
-
-export const userJoinedReducer = (state = userInitialState, action) => {
-    switch (action.type) {
-        case USER_JOINED:
-            return {
-                ...state,
-                users: [...state.users, action.newValue]
-            };
-        default:
-            return state;
-    }
-};

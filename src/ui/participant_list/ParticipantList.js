@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import {ParticipantWindow } from '../participant_window'
 import { connect } from 'react-redux';
-
-
+import * as fromReducers from '../../reducers'
+import * as fromActions from '../../actions'
 class ParticipantList extends React.Component {
     render() {
-        const {participantList} = this.props;
-        const partWindowList = participantList.map(u => <ParticipantWindow name={u.username} key={u.key}></ParticipantWindow>)
+        const {participantList, muteUser} = this.props;
+        const partWindowList = participantList.map(u => <ParticipantWindow name={u.username} 
+            key={u.key} 
+            id={u.key}
+            mute={u.mute}
+            onMuteClick={muteUser}></ParticipantWindow>)
         return <div className='participantList' >
             <div className='participantListHeader'>
                 <span>Participants</span>:
@@ -20,9 +24,9 @@ class ParticipantList extends React.Component {
 
 
 function mapStateToProps (store) {
-    console.log(store)
     return {
-    participantList: store.usersState.users.map(u => ({username: u.username, key: u.userId}))
+    participantList: fromReducers.getAllUsers(store).map(u => ({username: u.username, key: u.userId, mute: u.mute})),
+    muteUser: fromActions.muteUserPraValer
   }
 };
 
