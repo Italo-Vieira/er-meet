@@ -1,6 +1,6 @@
 import React from 'react';
-import ParticipantWindow from './participant_list_row'
-import './participant_list.css'
+import ParticipantWindow from './participant-list-row'
+import './participant-list.css'
 
 export default class ParticipantList extends React.Component {
     render() {

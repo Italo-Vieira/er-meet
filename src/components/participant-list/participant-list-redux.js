@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import * as fromReducers from '../../redux/reducers'
 import * as fromActions from '../../redux/actions'
-import ParticipantList from './participant_list-view'
+import ParticipantList from './participant-list-view'
 
 function mapStateToProps(store) {
     return {

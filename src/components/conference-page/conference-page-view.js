@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './conference-page.css';
-import ParticipantList from '../participant_list';
+import ParticipantList from '../participant-list';
 import { BsMic} from 'react-icons/bs';
 
 export default class ConferencePageView extends Component {

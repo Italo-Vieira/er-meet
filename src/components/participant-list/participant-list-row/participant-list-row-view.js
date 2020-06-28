@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {FiMonitor} from 'react-icons/fi';
 import { BsMic, BsMicMute } from 'react-icons/bs';
-
+import './participant-list-row.css'
 export default class ParticipantWindow extends Component { 
     render() {
         const {mute, name, onMuteClick, id} = this.props;
