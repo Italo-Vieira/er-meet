@@ -1,4 +1,4 @@
-import { CLICK_UPDATE_VALUE, MEETING_FOUND, USER_JOINED, MUTE_USER } from './actionTypes';
+import { CLICK_UPDATE_VALUE, MEETING_FOUND, USER_JOINED, MUTE_USER, CHANGE_PAGE } from './actionTypes';
 import {Store} from '../store'
 export const clickButton = value => ({
     type: CLICK_UPDATE_VALUE,
@@ -30,4 +30,9 @@ export const muteUserPraValer = (id, mute) => Store.dispatch({
         userId: id,
         mute: mute
     }
+});
+
+export const changePage = (nextPage) => ({ 
+    type: CHANGE_PAGE,
+    nextPage
 });

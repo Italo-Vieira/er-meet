@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-
-import ConferencePage from './conference-page';
+import ReduxRouter from './redux-router';
 
 export default class App extends React.Component {
 
   render() {
     return (
-      <ConferencePage></ConferencePage>
+      <ReduxRouter></ReduxRouter>
     );
   }
 }

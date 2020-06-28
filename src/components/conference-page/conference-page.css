@@ -23,29 +23,31 @@
 }
 
 .endMeetingButton {
-	box-shadow:inset 0px 0px 0px -10px #cf866c;
-	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
-	background-color:#d0451b;
-	border-radius:8px;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:17px;
-  padding:11px 24px;
-  border:none;
-  text-decoration:none;
+  box-shadow: inset 0px 0px 0px -10px #cf866c;
+  background: linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+  background-color: #d0451b;
+  border-radius: 8px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  padding: 11px 24px;
+  border: none;
+  text-decoration: none;
   margin: auto;
   height: 3em;
   min-width: 10em;
 }
+
 .endMeetingButton:hover {
-	background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
-	background-color:#bc3315;
+  background: linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+  background-color: #bc3315;
 }
+
 .endMeetingButton:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
 .endMeetingDiv {
@@ -80,7 +82,8 @@
   font-family: Arial;
   color: white;
 }
+
 .selfMuteButton:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }

@@ -1,0 +1,37 @@
+.lightBg {
+    color: white;
+    flex-direction: column;
+    display: flex;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginPageBg {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background: rgb(71,66,66);
+    background: radial-gradient(circle, rgba(71,66,66,1) 0%, rgba(37,35,35,1) 100%);
+    display: flex;
+}
+
+.meetingNumberInput {
+    padding: 6px;
+    font-size: 18px;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-style: solid;
+    border-radius: 6px;
+    box-shadow: 0px 0px 5px rgba(66,66,66,.75);
+    text-shadow: 0px 0px 1px rgba(66,66,66,.75);
+    width: 100%;
+}
+
+.meetingNumberInput:focus {
+    outline:none;
+}
