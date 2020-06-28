@@ -1,5 +1,5 @@
-import {meetingFound, userJoined, muteUser} from '../actions'
-import { Store } from '../store';
+import {meetingFound, userJoined, muteUser} from '../redux/actions'
+import { Store } from '../redux/store';
 const names = ["Alberto Robert", "Italo Vieira", "Jose Jorge", "Saia Rodada", "Juninho Pé de Saco"]
 function fakeMeeting() {
     return {

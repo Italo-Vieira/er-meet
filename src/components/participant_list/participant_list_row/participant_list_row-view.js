@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {FiMonitor} from 'react-icons/fi';
 import { BsMic, BsMicMute } from 'react-icons/bs';
 
-export class ParticipantWindow extends Component { 
+export default class ParticipantWindow extends Component { 
     render() {
         const {mute, name, onMuteClick, id} = this.props;
         const MuteIcon = mute ? BsMicMute: BsMic;
