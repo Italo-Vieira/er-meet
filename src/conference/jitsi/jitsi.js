@@ -1,6 +1,6 @@
-/* global JitsiMeetJS */
+/* global JitsiMeetJS $*/
 import {ConferenceProvider} from '../conference_provider'
-
+JitsiMeetJS.setLogLevel(JitsiMeetJS.logLevels.ERROR);
 const options = {
     hosts: {
         domain: 'beta.meet.jit.si',
@@ -21,12 +21,14 @@ const initOptions = {
     disableAudioLevels: true
 };
 
+
 export default class JitsiConferenceProvider extends ConferenceProvider {
     constructor(conferenceHandler) {
         super(conferenceHandler);
         this.conferenceHandler = conferenceHandler;
         this.remoteTracks = {};
         this.connection = undefined;
+        this.localTracks = [];
     }
 
     join(joinInfo) {
@@ -52,7 +54,17 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
 
     _onConnectionSuccess() {
         this.room = this.connection.initJitsiConference(this.roomName, confOptions);
-        this.room.on(JitsiMeetJS.events.conference.TRACK_ADDED, () => {});
+        this.room.on(JitsiMeetJS.events.conference.TRACK_ADDED, (track) => {
+            const participant = track.getParticipantId();
+            if (track.isLocal()) {
+             //   return;
+            } else if (!this.remoteTracks[participant]) {
+                this.remoteTracks[participant] = [];
+            }
+
+
+                track.attach($('#screenShare')[0]);
+        });
     
         this.room.on(JitsiMeetJS.events.conference.TRACK_REMOVED, track => {
             console.log(`track removed!!!${track}`);
@@ -87,5 +99,23 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
             (userID, audioLevel) => console.log(`${userID} - ${audioLevel}`));
     
             this.room.join();
+    }
+
+    shareScreen() {
+        JitsiMeetJS.createLocalTracks({
+            devices: [ 'desktop' ]
+        })
+            .then(tracks => {
+                this.localTracks.push(tracks[0]);
+                this.localTracks[this.localTracks.length -1].addEventListener(
+                    JitsiMeetJS.events.track.TRACK_MUTE_CHANGED,
+                    () => console.log('local track muted'));
+                this.localTracks[this.localTracks.length -1].addEventListener(
+                    JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED,
+                    () => console.log('local track stoped'));
+                this.localTracks[this.localTracks.length -1].attach($('#localVideo1')[0]);
+                this.room.addTrack(this.localTracks[this.localTracks.length -1]);
+            })
+            .catch(error => console.log(error));
     }
 }

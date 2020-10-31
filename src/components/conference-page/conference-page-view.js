@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './conference-page.css';
 import ParticipantList from '../participant-list';
-import { BsMic} from 'react-icons/bs';
+import { BsMic, BsDisplay } from 'react-icons/bs';
+import conferenceProvider from '../../conference'
 
 export default class ConferencePageView extends Component {
     state = {
@@ -18,7 +19,8 @@ export default class ConferencePageView extends Component {
         return (
             <div className="App" style={{}}>
                 <div style={{ display: 'flex', flexDirection: 'column', flexGrow: '1' }}>
-                    <div id="screenShare" style={{ flex: '1' }}>
+                    <div style={{ flex: '1' }}>
+                        <video id="screenShare" autoPlay="1" style={{ margin: '10pt', borderRadius: '5pt', height: 'calc(100vh - 100pt)' }}></video>
                     </div>
                     <div className="bottomBar">
                         <div className="selfMuteDiv">
@@ -31,6 +33,11 @@ export default class ConferencePageView extends Component {
                         </div>
                         <div style={{ flex: '1' }}>
 
+                            <button onClick={()=> conferenceProvider.shareScreen()} className="selfMuteButton screenshare">
+                                <BsDisplay className="screenShareIcon">
+                                </BsDisplay>
+                                <span className="selfMuteText">Mute</span>
+                            </button>
                         </div>
                         <div className="endMeetingDiv">
                             <button className="endMeetingButton">End Meeting</button>

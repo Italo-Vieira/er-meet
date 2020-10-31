@@ -38,6 +38,9 @@
   margin: auto;
   height: 3em;
   min-width: 10em;
+  position: absolute;
+  right: 18px;
+  top: 22px;
 }
 
 .endMeetingButton:hover {
@@ -46,13 +49,13 @@
 }
 
 .endMeetingButton:active {
-  position: relative;
-  top: 1px;
+  position: absolute;
+  top: 23px;
 }
 
 .endMeetingDiv {
   display: flex;
-  width: 300px;
+  position: relative;
 }
 
 .selfMute {
@@ -62,17 +65,18 @@
 }
 
 .selfMuteDiv {
-  padding: 10px 0px 10px 35px;
+  position: absolute;
   max-width: 100px;
   display: block;
   min-width: 100px;
+  margin-top: 7px;
 }
+
 
 .selfMuteButton {
   text-align: center;
   width: 76%;
-  height: 100%;
-  display: block;
+  height: 65pt;
   padding: 20px;
   background: #252323;
   border: none;
@@ -86,4 +90,20 @@
 .selfMuteButton:active {
   position: relative;
   top: 1px;
+}
+
+.selfMuteButton.screenshare {
+  width: 80pt;
+  position: relative;
+  top: 5px;
+}
+
+.selfMuteButton.screenshare:active {
+  top: 6px;
+}
+
+.screenShareIcon {
+  color: #70ff8f;
+  width: 35pt;
+  height: 35pt;
 }
