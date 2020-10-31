@@ -15,14 +15,10 @@ export default class ConferencePageView extends Component {
     }
 
     render() {
-        const { clickButton, newValue } = this.props;
-
-        const { inputValue } = this.state;
-
         return (
             <div className="App" style={{}}>
                 <div style={{ display: 'flex', flexDirection: 'column', flexGrow: '1' }}>
-                    <div style={{ flex: '1' }}>
+                    <div id="screenShare" style={{ flex: '1' }}>
                     </div>
                     <div className="bottomBar">
                         <div className="selfMuteDiv">

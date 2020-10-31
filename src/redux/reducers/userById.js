@@ -1,19 +1,21 @@
-import { USER_JOINED, MUTE_USER } from '../actions/actionTypes';
+import { USER_JOINED, MUTE_USER, USER_NAME_CHANGE,USER_LEFT } from '../actions/actionTypes';
 import { combineReducers } from 'redux';
 
 export const byId = (state = {}, action) => {
     switch (action.type) {
         case USER_JOINED:
-            var newState = {...state};
+            var newState = { ...state };
             newState[action.user.userId] = action.user;
             return newState;
+        case USER_LEFT: 
         case MUTE_USER:
-            var newState = {...state};
+        case USER_NAME_CHANGE:
+                newState = { ...state };
             var oldUser = state[action.user.userId]
             return {
                 ...state,
-                [action.user.userId]: {...oldUser,...action.user}
-            };            
+                [action.user.userId]: { ...oldUser, ...action.user }
+            };
         default:
             return state;
     }

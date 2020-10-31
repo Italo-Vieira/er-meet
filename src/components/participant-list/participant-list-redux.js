@@ -5,7 +5,7 @@ import ParticipantList from './participant-list-view'
 
 function mapStateToProps(store) {
     return {
-        participantList: fromReducers.getAllUsers(store).map(u => ({ username: u.username, key: u.userId, mute: u.mute })),
+        participantList: fromReducers.getAllUsers(store).filter(u=>u.connected).map(u => ({ username: u.username, key: u.userId, mute: u.mute })),
         muteUser: fromActions.muteUserPraValer
     }
 };

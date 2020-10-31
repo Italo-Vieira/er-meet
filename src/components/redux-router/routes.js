@@ -1,4 +1,3 @@
-import React from 'react'
 import ConferencePage from "../conference-page/";
 import LoginPage from "../login-page";
 

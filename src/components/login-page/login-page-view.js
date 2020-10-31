@@ -1,21 +1,41 @@
 import React from 'react';
 import './login-page.css'
+import conferenceProvider from '../../conference'
 
 export default class LoginPage extends React.Component {
-    render () {
-        const {changePage} = this.props;
-        function preventDefault(callback, constructor) {
-            return (e)=>{
-                callback(constructor)
-                e.preventDefault();
-            }
+
+    constructor(props) {
+        super(props)
+        this.state = {value: ''}
+    }
+
+    handleChange(event) {
+        this.setState({ value: event.target.value });
+    }
+
+    handleSubmit(callback, constructor) {
+        return (e) => {
+            e.preventDefault();
+            let roomName = this.state.value
+            conferenceProvider.join({roomName})
+
+            callback(constructor)
+
         }
+    }
+
+    render() {
+        const { changePage } = this.props;
+
+
+
+
         return (<div className="loginPageBg">
             <div className="lightBg">
                 <h1>Enter your meeting number</h1>
-                <form  onSubmit={preventDefault(changePage, "conference")}>
-                    <input className="meetingNumberInput"></input>
-                    
+                <form onSubmit={this.handleSubmit(changePage, "conference")}>
+                    <input className="meetingNumberInput" value={this.state.value} onChange={(e)=> this.handleChange(e)}></input>
+
                 </form>
             </div>
         </div>);
