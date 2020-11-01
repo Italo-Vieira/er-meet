@@ -1,0 +1,54 @@
+:root {
+    --tile-width: 100pt;
+    --tile-height: 60pt;
+}
+
+.participantTile {
+    width: var(--tile-width);
+    height: var(--tile-height);
+    overflow: hidden;
+    border-radius: 5pt;
+    margin: 5pt;
+}
+
+.participantTile.big {
+    width: calc(100vw - 340px);
+    height: calc(100vh - 220px);
+}
+
+
+.participantTile.big video {
+    object-fit: contain;
+    border-radius: 5pt;
+}
+
+.participantTile.big:hover {
+    border: none;
+}
+
+.participantTile video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.participantTile > div {
+    position: relative;
+}
+
+.participantTile span {
+    position: absolute;
+    width: var(--tile-width);
+    height: var(--tile-height);
+    display: inline-grid;
+    align-items: center;
+    color: white;
+    background: #0000003d;
+    font-size: 0.8em;
+    left:0;
+    top:0;
+}
+
+.participantTile:hover {
+    border: 2px solid #7f7f7f80;
+}

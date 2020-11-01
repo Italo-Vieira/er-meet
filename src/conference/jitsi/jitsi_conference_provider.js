@@ -1,5 +1,7 @@
 /* global JitsiMeetJS $*/
 import {ConferenceProvider} from '../conference_provider'
+import JitsiTrack from './jitsi-track'
+
 JitsiMeetJS.setLogLevel(JitsiMeetJS.logLevels.ERROR);
 const options = {
     hosts: {
@@ -29,6 +31,7 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
         this.remoteTracks = {};
         this.connection = undefined;
         this.localTracks = [];
+        this._tracks = {};
     }
 
     join(joinInfo) {
@@ -61,9 +64,10 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
             } else if (!this.remoteTracks[participant]) {
                 this.remoteTracks[participant] = [];
             }
-
-
-                track.attach($('#screenShare')[0]);
+            let trackWrapper = new JitsiTrack(track);
+            this._tracks[trackWrapper.getId()] = trackWrapper;
+            this.conferenceHandler.onTrackAdded(participant, trackWrapper)
+            //track.attach($('#screenShare')[0]);
         });
     
         this.room.on(JitsiMeetJS.events.conference.TRACK_REMOVED, track => {
@@ -117,5 +121,9 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
                 this.room.addTrack(this.localTracks[this.localTracks.length -1]);
             })
             .catch(error => console.log(error));
+    }
+
+    getTrack(trackId) {
+        return this._tracks[trackId];
     }
 }

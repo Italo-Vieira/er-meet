@@ -5,7 +5,7 @@ export default class ConferenceHandler {
         this.reduxStore = reduxStore
     }
 
-    onUserJoined(userId, username="Unamed Maluco", mute=false) {
+    onUserJoined(userId, username="Unnamed Maluco", mute=false) {
         // TODO: dispatch error if user id is undefined
         let user = {
             userId,
@@ -38,4 +38,9 @@ export default class ConferenceHandler {
     onConferenceEnded() {
 
     }
+
+    onTrackAdded(userId, track) {
+        this.reduxStore.dispatch(actions.videoTrackAdded(userId, track.getId()))
+    }
+
 }
