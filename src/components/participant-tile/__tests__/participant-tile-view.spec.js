@@ -22,7 +22,7 @@ describe('participant tile tests', () => {
         user.videoTrack = trackMock;
     });
 
-    it('Should call callback when clicked', () => {
+    it('Should call callback with user id when clicked', () => {
 
         const result = render(
             <ParticipantTile user={user} onTileClick={onClickMock} />
@@ -38,7 +38,7 @@ describe('participant tile tests', () => {
         user.videoTrack = trackMock;
 
         const result = render(
-            <ParticipantTile user={user} onClick={onClickMock} />
+            <ParticipantTile user={user} />
         );
 
         expect(result.getByTestId('user1-video-id')).toBeTruthy();
@@ -48,7 +48,7 @@ describe('participant tile tests', () => {
         trackMock.isReady = jest.fn().mockName('isReadyMock').mockReturnValue(false)
 
         const result = render(
-            <ParticipantTile user={user} onClick={onClickMock} />
+            <ParticipantTile user={user}/>
         );
 
         expect(result.queryByTestId('user1-video-id')).toBeFalsy();
@@ -58,11 +58,27 @@ describe('participant tile tests', () => {
         trackMock.isReady = jest.fn().mockName('isReadyMock').mockReturnValue(false)
 
         const result = render(
-            <ParticipantTile user={user} onClick={onClickMock} />
+            <ParticipantTile user={user}/>
         );
 
         expect(result.queryByTestId('tile-placeholder')).toBeTruthy();
     });
 
+    it('should supress overlay', () => {
+        const result = render(
+            <ParticipantTile user={user} suppressOverlay={true} />
+        );
 
+        expect(result.queryByTestId('tile-overlay-id')).toBeFalsy();       
+    })
+
+    
+    it('should change inner layout to big', () => {
+        const result = render(
+            <ParticipantTile user={user} big={true}/>
+        );
+
+        let hasBigClass = result.queryByTestId('part-tile-id').classList.contains('big')
+        expect(hasBigClass).toBe(true);       
+    })
 });

@@ -17,7 +17,7 @@ export default class ParticipantTile extends Component {
 
     render() {
         let background;
-        let { user, supressOverlay, big } = this.props;
+        let { user, suppressOverlay, big } = this.props;
         let videoTrack = user.videoTrack;
 
         if (videoTrack && videoTrack.isReady()) {
@@ -29,11 +29,11 @@ export default class ParticipantTile extends Component {
             background = <div data-testid="tile-placeholder" className="defaultTileBg"><BsFillPersonFill className='tileUserIcon' /></div>
         }
 
-        let overlay = <div>
+        let overlay = <div data-testid="tile-overlay-id">
             <span>{user.username}</span>
         </div>;
 
-        if (supressOverlay) {
+        if (suppressOverlay) {
             overlay = null;
         }
 

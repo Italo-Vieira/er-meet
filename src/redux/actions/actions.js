@@ -1,5 +1,4 @@
-import { CLICK_UPDATE_VALUE, MEETING_FOUND, USER_JOINED, MUTE_USER, CHANGE_PAGE, USER_NAME_CHANGED, USER_LEFT, VIDEO_TRACK_ADDED, FOCUSED_USER_CHANGED } from './actionTypes';
-import { Store } from '../store'
+import { CLICK_UPDATE_VALUE, MEETING_FOUND, USER_JOINED, MUTE_USER, CHANGE_PAGE, USER_NAME_CHANGED, USER_LEFT, VIDEO_TRACK_ADDED, FOCUSED_USER_CHANGED, PART_LIST_TOGGLED } from './actionTypes';
 
 export const clickButton = value => ({
     type: CLICK_UPDATE_VALUE,
@@ -60,4 +59,10 @@ export const videoTrackAdded = (userId, videoTrackId) => ({
 export const focusedUserChanged = (userId) => ({
     type: FOCUSED_USER_CHANGED,
     userId
+})
+
+/* UI action creators */
+export const partListToggled = (status) => ({
+    type: PART_LIST_TOGGLED,
+    status
 })

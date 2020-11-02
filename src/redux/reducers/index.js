@@ -3,12 +3,14 @@ import { combineReducers } from 'redux';
 import { conferenceFoundReducer} from './clickReducer';
 import users,* as fromUserById from './user'
 import page,* as fromPage from './page'
+import ui, * as fromUI from './ui'
 
 export const Reducers = combineReducers({
   clickState: clickReducer,
   users,
   conferenceFoundReducer,
-  page
+  page,
+  ui
 });
 
 let _userStore = {};
@@ -23,4 +25,8 @@ export const getAllUsers = (state) => fromUserById.getAllUsers(state.users );
 
 export const getUserById = (state, id) => fromUserById.getUserById(state.users, id);
 
+/* Page selectors */
 export const getCurrentPage = (state) => fromPage.getCurrentPage(state.page);
+
+/* UI selectors */
+export const getPartListState = (state) => fromUI.getPartListState(state.ui); 

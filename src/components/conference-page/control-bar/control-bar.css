@@ -1,0 +1,75 @@
+.bottomBar {
+    display: flex;
+    height: 45pt;
+    background: #252323;
+}
+
+.leftControls{
+    position: absolute;
+    display: inline-flex;
+    height: 45pt;
+    padding: 5pt;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.centerControls {
+    position: relative;
+    display: inline-flex;
+    box-sizing: border-box;
+    padding: 5pt;
+    justify-content: center;
+    width: 100%;
+}
+
+.rightControls {
+    position: absolute;
+    display: inline-flex;
+    height: 45pt;
+    width: 130pt;
+    right: 0;
+}
+
+.endMeetingButton {
+    box-shadow: inset 0px 0px 0px -10px #cf866c;
+    background: linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+    background-color: #d0451b;
+    border-radius: 8px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 10pt;
+    padding: 11px 24px;
+    border: none;
+    text-decoration: none;
+    margin: auto;
+    min-width: 100pt;
+    right: 0;
+}
+
+.endMeetingButton:hover {
+    background: linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+    background-color: #bc3315;
+}
+
+.endMeetingButton:active {
+    box-shadow: inset 0px 0px 13pt #b5b5b56b;
+}
+
+.relative {
+    position: relative;
+}
+
+
+.screenShareIcon {
+    color: #70ff8f;
+}
+
+.cameraIcon {
+    color: white;
+}
+
+.micIcon {
+    color: red;
+}

@@ -12,8 +12,12 @@
 }
 
 .participantTile.big {
-    width: calc(100vw - 340px);
-    height: calc(100vh - 220px);
+    width: calc(100% - 10pt);
+    height: calc(100vh - 135pt);
+}
+
+.participantTile.big video {
+    width: initial;
 }
 
 

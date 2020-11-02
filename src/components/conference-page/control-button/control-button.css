@@ -1,0 +1,36 @@
+.controlBtn {
+    text-align: center;
+    background: #252323;
+    border: none;
+    border-radius: 5pt;
+    outline: 0;
+    min-width: 40pt;
+    padding: 0pt;
+    margin: 0pt 5pt;
+    width: 65pt;
+    box-sizing: border-box;
+}
+
+.controlBtn:hover {
+    cursor: pointer;
+    background-color: #343434;
+}
+
+.controlBtn:active {
+    box-shadow: inset 0px 0px 2pt #b5b5b56b;
+}
+
+.controlBtn > svg {
+    width: 100%;
+    height: 20pt;
+    margin-bottom: 2pt;
+}
+
+.controlBtn:focus {
+    border: 1px solid #ffffff4d;
+}
+
+.controlText {
+    font-family: Arial;
+    color: white;
+}

@@ -4,14 +4,17 @@ import './participant-list.css'
 
 export default class ParticipantList extends React.Component {
     render() {
-        const { participantList, muteUser } = this.props;
+        const { participantList, muteUser, isOpen } = this.props;
+
         const partRows = participantList.map(user => <ParticipantRow
             name={user.username}
             key={user.userId}
             userId={user.userId}
             mute={user.mute}
             onMuteClick={muteUser}></ParticipantRow>)
-        return <div className='participantList' >
+        let closed = isOpen ? '' : 'closed';
+
+        return <div className={`participantList ${closed}`} >
             <div className='participantListHeader'>
                 <span>Participants</span>:
             </div>

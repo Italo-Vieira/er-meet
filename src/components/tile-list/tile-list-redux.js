@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
-import ConferencePageView from './conference-page-view'
+import TileList from './tile-list-view'
 import { userSelectors } from '../../redux/reducers'
 import { bindActionCreators } from 'redux';
 import { focusedUserChanged } from '../../redux/actions';
 
 const mapStateToProps = store => ({
-    focusedUser: userSelectors.getFocusedMediaUser(store),
+    participantList: userSelectors.getMediaUsers(store),
 });
 
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators({ changeUserFocus: focusedUserChanged }, dispatch);
 
-const ConferencePage = connect(mapStateToProps, mapDispatchToProps)(ConferencePageView);
-export default ConferencePage; 
+export default connect(mapStateToProps, mapDispatchToProps)(TileList);
