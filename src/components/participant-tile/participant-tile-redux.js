@@ -7,6 +7,6 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({ focusedUserChanged }, dispatch);
+    bindActionCreators({ onClick: focusedUserChanged }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParticipantTile);

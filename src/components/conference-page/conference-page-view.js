@@ -17,20 +17,23 @@ export default class ConferencePageView extends Component {
     }
 
     render() {
-        const { focusedUser, focusedTrack } = this.props;
+        const { focusedUser, changeUserFocus } = this.props;
         const partWindowList = this.props.participantList.map(u => <ParticipantTile
-            key={u.key}
-            userId={u.key}
+            key={u.userId}
+            user={u}
+            onTileClick={changeUserFocus}
             className="videoTile"
-            videoTrack={u.videoTrack}
-            username={u.username}
-            hasMedia={true}
         ></ParticipantTile>);
         let focusedTile;
-        if(focusedUser) {
 
-            focusedTile = <ParticipantTileBig key={focusedUser.userId} userId={focusedUser.userId} videoTrack={focusedTrack}></ParticipantTileBig>
-        } 
+        if (focusedUser) {
+            focusedTile = <ParticipantTile
+                key={focusedUser.userId}
+                user={focusedUser}
+                big='true'
+                supressOverlay='true'
+                ></ParticipantTile>
+        }
 
         return (
             <div className="App" style={{}}>
@@ -40,34 +43,34 @@ export default class ConferencePageView extends Component {
                             {focusedTile}
                         </div>
                         <div style={{ height: '80pt', display: 'flex' }}>
-                                {partWindowList}
-                            </div>
-                        </div>
-                        <div className="bottomBar">
-                            <div className="selfMuteDiv">
-                                <button className="selfMuteButton">
-                                    <BsMic className="selfMute">
-                                    </BsMic>
-                                    <span className="selfMuteText">Mute</span>
-                                </button>
-
-                            </div>
-                            <div style={{ flex: '1' }}>
-
-                                <button onClick={() => conferenceProvider.shareScreen()} className="selfMuteButton screenshare">
-                                    <BsDisplay className="screenShareIcon">
-                                    </BsDisplay>
-                                    <span className="selfMuteText">Mute</span>
-                                </button>
-                            </div>
-                            <div className="endMeetingDiv">
-                                <button className="endMeetingButton">End Meeting</button>
-                            </div>
+                            {partWindowList}
                         </div>
                     </div>
-                    <ParticipantList></ParticipantList>
+                    <div className="bottomBar">
+                        <div className="selfMuteDiv">
+                            <button className="selfMuteButton">
+                                <BsMic className="selfMute">
+                                </BsMic>
+                                <span className="selfMuteText">Mute</span>
+                            </button>
 
+                        </div>
+                        <div style={{ flex: '1' }}>
+
+                            <button onClick={() => conferenceProvider.shareScreen()} className="selfMuteButton screenshare">
+                                <BsDisplay className="screenShareIcon">
+                                </BsDisplay>
+                                <span className="selfMuteText">Mute</span>
+                            </button>
+                        </div>
+                        <div className="endMeetingDiv">
+                            <button className="endMeetingButton">End Meeting</button>
+                        </div>
+                    </div>
                 </div>
+                <ParticipantList></ParticipantList>
+
+            </div>
         );
     }
 }

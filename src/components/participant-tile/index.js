@@ -1,2 +1,2 @@
-export { default } from './participant-tile-redux'
+export { default } from './participant-tile-view'
 export { ParticipantTileBig } from './participant-tile-view-big'

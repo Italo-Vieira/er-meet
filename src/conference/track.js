@@ -1,6 +1,17 @@
-export default class JitsiTrack{
+export default class Track{
+    constructor(jitsiTrack) {
+    }
 
-    attach(htmlElement) {}
+    attach(htmlElement) {
 
-    detach(htmlElement) {}
+    }
+
+    detach(htmlElement) {
+    }
+
+    isVideo() {
+    }
+
+    getId() {
+    }
 }

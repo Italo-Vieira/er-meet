@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
-import * as fromReducers from '../../redux/reducers'
-import * as fromActions from '../../redux/actions'
+import { userSelectors } from '../../redux/reducers'
 import ParticipantList from './participant-list-view'
+import * as fromActions from '../../redux/actions'
+import { bindActionCreators } from 'redux';
 
-function mapStateToProps(store) {
-    return {
-        participantList: fromReducers.getAllUsers(store).filter(u=>u.connected).map(u => ({ username: u.username, key: u.userId, mute: u.mute })),
-        muteUser: fromActions.muteUserPraValer
-    }
-};
+const mapStateToProps = (store) => ({
+        participantList: userSelectors.getConnectedUsers(store),
+    });
 
-export default connect(mapStateToProps)(ParticipantList);
+const mapDispatchToProps = dispatch =>
+    bindActionCreators({  muteUser: fromActions.muteUser }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ParticipantList);

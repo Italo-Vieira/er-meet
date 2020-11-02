@@ -4,7 +4,7 @@ export class Video extends Component {
     constructor(props) {
         super(props)
         this._videoElement = null;
-        this._setVideoElement = this._preBindSetVideoElement.bind(this);
+        this._setVideoElement = this._setVideoElement.bind(this);
         this._track = this.props.track;
     }
 
@@ -20,6 +20,7 @@ export class Video extends Component {
 
     render() {
         return <video
+            data-testid={this.props.id + "-video-id"}
             id={this.props.id}
             autoPlay={true}
             className={this.props.className}
@@ -27,7 +28,7 @@ export class Video extends Component {
         ></video>;
     }
 
-    _preBindSetVideoElement(element) {
+    _setVideoElement(element) {
         this._videoElement = element;
     }
 }

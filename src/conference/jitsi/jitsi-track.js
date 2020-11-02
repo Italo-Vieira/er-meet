@@ -21,4 +21,8 @@ export default class JitsiTrack extends Track{
     getId() {
         return this._jitsiTrack.getId()
     }
+
+    isReady() {
+        return true;
+    }
 }

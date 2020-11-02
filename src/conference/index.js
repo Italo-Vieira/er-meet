@@ -1,5 +1,4 @@
-import ConferenceHandler from './conference_handler'
 import JitsiConferenceProvider from './jitsi'
-import { Store } from '../redux/store'
-const conferenceProvider = new JitsiConferenceProvider(new ConferenceHandler(Store))
+import FakeConferenceProvider from './fake'
+const conferenceProvider = new FakeConferenceProvider('')
 export default conferenceProvider;

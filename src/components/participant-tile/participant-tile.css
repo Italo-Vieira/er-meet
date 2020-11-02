@@ -47,8 +47,24 @@
     font-size: 0.8em;
     left:0;
     top:0;
+    z-index: 1;
 }
 
 .participantTile:hover {
     border: 2px solid #7f7f7f80;
+}
+
+.defaultTileBg {
+    background: #141414; ;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.tileUserIcon {
+    width: 40pt;
+    height: 40pt;
+    color: #4a4a4a;   
 }

@@ -1,5 +1,6 @@
 import { USER_JOINED, MUTE_USER, USER_NAME_CHANGED, USER_LEFT, VIDEO_TRACK_ADDED, FOCUSED_USER_CHANGED } from '../actions/actionTypes';
 import { combineReducers } from 'redux';
+import conferenceProvider from '../../conference'
 
 export const byId = (state = {}, action) => {
     switch (action.type) {
@@ -63,4 +64,22 @@ export const getUserById = (state, id) => {
 
 export const getFocusedUser = (state) => {
     return state.byId[state.focused.userId];
+}
+
+export const getConnectedUsers = (state) => {
+    return state.allIds.map(id => state.byId[id]).filter(u => u.connected) || [];
+}
+// TODO: how to test this
+export const getMediaUsers = (state) => {
+    let users = getConnectedUsers(state);
+    users.forEach(u => u.videoTrack = conferenceProvider.getTrack(u.videoTrackId));
+    return users;
+}
+
+export const getFocusedMediaUser = (state) => {
+    let user = getFocusedUser(state);
+    if(user === undefined)
+        return;
+    user.videoTrack = conferenceProvider.getTrack(user.videoTrackId);
+    return user;
 }

@@ -6,6 +6,10 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { Store } from './redux/store';
 import { faker } from './faker';
+import conferenceProvider from './conference';
+import ConferenceHandler from './conference/conference_handler'
+
+//conferenceProvider.init(new ConferenceHandler(Store));
 
 ReactDOM.render(
   <Provider store={Store}>
@@ -13,8 +17,9 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
 window.faker = () => {faker(Store)}
-//setTimeout(window.faker, 2000)
+setTimeout(window.faker, 2000)
 
 
 // If you want your app to work offline and load faster, you can change
