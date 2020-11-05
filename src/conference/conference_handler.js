@@ -27,8 +27,8 @@ export default class ConferenceHandler {
         this.reduxStore.dispatch(actions.userNameChanged(userId, displayName))
     }
 
-    onConferenceJoined() {
-
+    onConferenceJoined(meUserId) {
+        this.reduxStore.dispatch(actions.meUserCreated(meUserId));
     }
 
     onUserSpeaking() {

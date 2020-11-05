@@ -1,4 +1,4 @@
-import { USER_JOINED, MUTE_USER, USER_NAME_CHANGED, USER_LEFT, VIDEO_TRACK_ADDED, FOCUSED_USER_CHANGED } from '../actions/actionTypes';
+import { USER_JOINED, MUTE_USER, USER_NAME_CHANGED, USER_LEFT, VIDEO_TRACK_ADDED, FOCUSED_USER_CHANGED, ME_USER_CREATED } from '../actions/actionTypes';
 import { combineReducers } from 'redux';
 import conferenceProvider from '../../conference'
 
@@ -8,11 +8,11 @@ export const byId = (state = {}, action) => {
             var newState = { ...state };
             newState[action.user.userId] = action.user;
             return newState;
-        case USER_LEFT: 
+        case USER_LEFT:
         case MUTE_USER:
         case USER_NAME_CHANGED:
         case VIDEO_TRACK_ADDED:
-                newState = { ...state };
+            newState = { ...state };
             var oldUser = state[action.user.userId]
             return {
                 ...state,
@@ -35,12 +35,21 @@ const allIds = (state = [], action) => {
 const focused = (state = {}, action) => {
     switch (action.type) {
         case FOCUSED_USER_CHANGED:
-            return {userId: action?.userId};
+            return { userId: action?.userId };
         case VIDEO_TRACK_ADDED:
-            if(state.userId == undefined)
-                return {userId: action.user.userId}
-            else 
+            if (state.userId === undefined)
+                return { userId: action.user.userId }
+            else
                 return state
+        default:
+            return state;
+    }
+}
+
+const me = (state = {}, action) => {
+    switch (action.type) {
+        case ME_USER_CREATED:
+            return { id: action.user.id };
         default:
             return state;
     }
@@ -49,7 +58,8 @@ const focused = (state = {}, action) => {
 const user = combineReducers({
     byId,
     allIds,
-    focused
+    focused,
+    me
 })
 
 export default user;
@@ -69,17 +79,20 @@ export const getFocusedUser = (state) => {
 export const getConnectedUsers = (state) => {
     return state.allIds.map(id => state.byId[id]).filter(u => u.connected) || [];
 }
-// TODO: how to test this
+
 export const getMediaUsers = (state) => {
-    let users = getConnectedUsers(state);
+    let users = getConnectedUsers(state).map(u => JSON.parse(JSON.stringify(u)));
     users.forEach(u => u.videoTrack = conferenceProvider.getTrack(u.videoTrackId));
     return users;
 }
 
 export const getFocusedMediaUser = (state) => {
-    let user = getFocusedUser(state);
-    if(user === undefined)
+
+    let user = getFocusedUser(state)
+    if (user === undefined || user.userId == undefined)
         return;
+    user = JSON.parse(JSON.stringify(user));
+
     user.videoTrack = conferenceProvider.getTrack(user.videoTrackId);
     return user;
 }

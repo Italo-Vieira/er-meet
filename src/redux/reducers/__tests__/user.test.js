@@ -1,5 +1,17 @@
-import user, * as userGetters from '../user'
+import user, * as userSelectors from '../user'
 import * as actions from '../../actions';
+import conferenceProvider from '../../../conference';
+
+jest.mock('../../../conference', () => {
+    let _tracks = {};
+    return {
+        getTrack: (trackId) => _tracks[trackId],
+
+        addTrack: (track) => _tracks[track.getId()] = track,
+    }
+})
+
+
 
 describe('by id reducer', () => {
     let initialState, expectedById;
@@ -129,7 +141,7 @@ describe('by id reducer', () => {
     })
 });
 
-describe('Store getters', () => {
+describe('Store selectors', () => {
     let initialState, expectedFocused;
 
     beforeEach(() => {
@@ -151,16 +163,16 @@ describe('Store getters', () => {
 
     it('should get all users', () => {
 
-        expect(userGetters.getAllUsers(initialState)).toEqual(Object.values(initialState.byId));
+        expect(userSelectors.getAllUsers(initialState)).toEqual(Object.values(initialState.byId));
     })
 
     it('should get user by id', () => {
-        expect(userGetters.getUserById(initialState, 'user2')).toEqual(initialState.byId['user2'])
+        expect(userSelectors.getUserById(initialState, 'user2')).toEqual(initialState.byId['user2'])
     })
 
     it('should get the focused user', () => {
         initialState.focused.userId = 'user1';
-        expect(userGetters.getFocusedUser(initialState)).toEqual(initialState.byId['user1'])
+        expect(userSelectors.getFocusedUser(initialState)).toEqual(initialState.byId['user1'])
     })
 
     it('should get all connected users', () => {
@@ -168,7 +180,7 @@ describe('Store getters', () => {
         byId.user1.connected = false;
         byId.user3.connected = false;
         let expectedUsers = [byId.user2, byId.user4, byId.user5];
-        expect(userGetters.getConnectedUsers(initialState)).toEqual(expectedUsers)
+        expect(userSelectors.getConnectedUsers(initialState)).toEqual(expectedUsers)
     })
 
     it('should return empty list if theres no user', () => {
@@ -179,9 +191,77 @@ describe('Store getters', () => {
         }
 
         let expectedUsers = [];
-        expect(userGetters.getConnectedUsers(initialState)).toEqual(expectedUsers)
+        expect(userSelectors.getConnectedUsers(initialState)).toEqual(expectedUsers)
     })
 
+
+    it('should return focused user with their media track', () => {
+        initialState.byId.user1.videoTrackId = "track1";
+        initialState.focused.userId = 'user1';
+
+        let expectedUser = JSON.parse(JSON.stringify(initialState.byId.user1));
+
+        expectedUser.videoTrack = createTrack("track1");
+        conferenceProvider.addTrack(expectedUser.videoTrack);
+
+        let result = userSelectors.getFocusedMediaUser(initialState);
+
+        expect(result).toEqual(expectedUser);
+    })
+
+    it('should not change user state on getFocusedMediaUser', () => {
+        initialState.byId.user1.videoTrackId = "track1";
+        initialState.focused.userId = 'user1';
+
+        let unexpectedUser = initialState.byId.user1;
+
+        conferenceProvider.addTrack(createTrack("track1"));
+
+        let result = userSelectors.getFocusedMediaUser(initialState);
+
+        expect(result).not.toBe(unexpectedUser);
+    })
+
+    it('should return undefined if theres no user focused', () => {
+        let result = userSelectors.getFocusedMediaUser(initialState);
+
+        expect(result).toBe(undefined);
+    })
+
+
+    describe('on getMediaUsers', () => {
+        beforeEach(() => {
+            let { user1, user3, user5 } = initialState.byId;
+            user1.videoTrackId = "track1";
+            user3.videoTrackId = "track3";
+            user5.videoTrackId = "track5";
+            conferenceProvider.addTrack(createTrack("track1"));
+            conferenceProvider.addTrack(createTrack("track2"));
+            conferenceProvider.addTrack(createTrack("track5"));
+        })
+
+        it('should not change store state', () => {
+            let unexpectedUsers = Object.values(initialState.byId);
+
+            let result = userSelectors.getMediaUsers(initialState);
+            expect(result).not.toEqual(unexpectedUsers)
+        })
+
+        it('should return all users with their media', () => {
+            let expectedUsers = []
+            for (let user of Object.values(initialState.byId)) {
+                let copiedUser = JSON.parse(JSON.stringify(user));
+                let track = conferenceProvider.getTrack(copiedUser.videoTrackId);
+                if (track) {
+                    copiedUser.videoTrack = track;
+                }
+                expectedUsers.push(copiedUser);
+            }
+
+            let result = userSelectors.getMediaUsers(initialState);
+            expect(result).toEqual(expectedUsers)
+        })
+    })
 });
 
 function createUser(userId, username) {
@@ -191,5 +271,11 @@ function createUser(userId, username) {
         username,
         mute: false,
         videoTrackId: ''
+    }
+}
+
+function createTrack(trackId) {
+    return {
+        getId: () => trackId
     }
 }

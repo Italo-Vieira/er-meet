@@ -1,18 +1,18 @@
-import { CLICK_UPDATE_VALUE, MEETING_FOUND, USER_JOINED, MUTE_USER, CHANGE_PAGE, USER_NAME_CHANGED, USER_LEFT, VIDEO_TRACK_ADDED, FOCUSED_USER_CHANGED, PART_LIST_TOGGLED } from './actionTypes';
+import * as actionTypes from './actionTypes';
 
 export const clickButton = value => ({
-    type: CLICK_UPDATE_VALUE,
+    type: actionTypes.CLICK_UPDATE_VALUE,
     newValue: value
 });
 
 
 export const meetingFound = value => ({
-    type: MEETING_FOUND,
+    type: actionTypes.MEETING_FOUND,
     newValue: value
 });
 
 export const userJoined = value => ({
-    type: USER_JOINED,
+    type: actionTypes.USER_JOINED,
     user: {
         connected: true,
         ...value
@@ -20,7 +20,7 @@ export const userJoined = value => ({
 });
 
 export const userLeft = id => ({
-    type: USER_LEFT,
+    type: actionTypes.USER_LEFT,
     user: {
         userId: id,
         connected: false
@@ -28,7 +28,7 @@ export const userLeft = id => ({
 })
 
 export const muteUser = (id, mute) => ({
-    type: MUTE_USER,
+    type: actionTypes.MUTE_USER,
     user: {
         userId: id,
         mute: mute
@@ -36,7 +36,7 @@ export const muteUser = (id, mute) => ({
 });
 
 export const userNameChanged = (id, name) => ({
-    type: USER_NAME_CHANGED,
+    type: actionTypes.USER_NAME_CHANGED,
     user: {
         userId: id,
         username: name
@@ -44,12 +44,12 @@ export const userNameChanged = (id, name) => ({
 });
 
 export const changePage = (nextPage) => ({
-    type: CHANGE_PAGE,
+    type: actionTypes.CHANGE_PAGE,
     nextPage
 });
 
 export const videoTrackAdded = (userId, videoTrackId) => ({
-    type: VIDEO_TRACK_ADDED,
+    type: actionTypes.VIDEO_TRACK_ADDED,
     user: {
         userId,
         videoTrackId
@@ -57,12 +57,19 @@ export const videoTrackAdded = (userId, videoTrackId) => ({
 })
 
 export const focusedUserChanged = (userId) => ({
-    type: FOCUSED_USER_CHANGED,
+    type: actionTypes.FOCUSED_USER_CHANGED,
     userId
+})
+
+export const meUserCreated = (userId) => ({
+    type: actionTypes.ME_USER_CREATED,
+    user: {
+        userId
+    }
 })
 
 /* UI action creators */
 export const partListToggled = (status) => ({
-    type: PART_LIST_TOGGLED,
+    type: actionTypes.PART_LIST_TOGGLED,
     status
 })

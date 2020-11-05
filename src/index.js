@@ -9,7 +9,7 @@ import { faker } from './faker';
 import conferenceProvider from './conference';
 import ConferenceHandler from './conference/conference_handler'
 
-//conferenceProvider.init(new ConferenceHandler(Store));
+conferenceProvider.init(new ConferenceHandler(Store));
 
 ReactDOM.render(
   <Provider store={Store}>
@@ -19,7 +19,7 @@ ReactDOM.render(
 );
 
 window.faker = () => {faker(Store)}
-setTimeout(window.faker, 2000)
+//setTimeout(window.faker, 2000)
 
 
 // If you want your app to work offline and load faster, you can change

@@ -12,6 +12,19 @@ export class Video extends Component {
         this._track.attach(this._videoElement)
     }
 
+    componentDidUpdate() {
+        this._track.attach(this._videoElement);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        let newTrack = nextProps.track;
+        if(this._track !== newTrack) {
+            this._track.detach(this._videoElement);
+            this._track = newTrack;
+            return true;
+        }
+        return false;
+    }
 
     componentWillUnmount() {
         // TODO: beware of chrome bug were we get black screen when chaning src of video

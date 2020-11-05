@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import './control-bar.css';
 import { BsMic, BsDisplay, BsCameraVideo, BsPeople } from 'react-icons/bs';
 import ControlButton from '../control-button';
+import conferenceProvider from '../../../conference';
+
 export default class ControlBar extends Component {
 
     render() {
         let { togglePartList } = this.props;
-
+        let toggleCamera = conferenceProvider.toggleCamera.bind(conferenceProvider);
+        let shareScreen = conferenceProvider.shareScreen.bind(conferenceProvider);
         return (
             <div className="bottomBar">
                 <div className="relative">
@@ -14,13 +17,13 @@ export default class ControlBar extends Component {
                         <ControlButton text="Mute">
                             <BsMic className="cameraIcon" />
                         </ControlButton>
-                        <ControlButton text="Camera">
+                        <ControlButton onClick={toggleCamera} text="Camera">
                             <BsCameraVideo className="cameraIcon" />
                         </ControlButton>
                     </div>
                 </div>
                 <div className="centerControls">
-                    <ControlButton text="Screen Share">
+                    <ControlButton onClick={shareScreen} text="Screen Share">
                         <BsDisplay className="screenShareIcon">
                         </BsDisplay>
                     </ControlButton>
