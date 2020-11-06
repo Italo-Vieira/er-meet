@@ -15,7 +15,7 @@ export const userJoined = value => ({
     type: actionTypes.USER_JOINED,
     user: {
         connected: true,
-        ...value
+        ...value,
     }
 });
 
@@ -34,6 +34,22 @@ export const muteUser = (id, mute) => ({
         mute: mute
     }
 });
+
+export const userCameraMuted = (userId, isCameraMuted) => ({
+    type: actionTypes.USER_CAMERA_MUTE_CHANGED,
+    user: {
+        userId,
+        isCameraMuted,
+    }
+})
+
+export const userMicMuted = (userId, isMicMuted) => ({
+    type: actionTypes.USER_CAMERA_MUTE_CHANGED,
+    user: {
+        userId,
+        isMicMuted,
+    }
+})
 
 export const userNameChanged = (id, name) => ({
     type: actionTypes.USER_NAME_CHANGED,
@@ -65,6 +81,13 @@ export const meUserCreated = (userId) => ({
     type: actionTypes.ME_USER_CREATED,
     user: {
         userId
+    }
+})
+
+export const myCameraMuted = (isCameraMuted) => ({
+    type: actionTypes.MY_CAMERA_MUTED,
+    user: {
+        isCameraMuted
     }
 })
 

@@ -5,12 +5,12 @@ export default class ConferenceHandler {
         this.reduxStore = reduxStore
     }
 
-    onUserJoined(userId, username="Unnamed Maluco", mute=false) {
+    onUserJoined(userId, username="Unnamed Maluco", isCameraMuted=true) {
         // TODO: dispatch error if user id is undefined
         let user = {
             userId,
             username,
-            mute
+            isCameraMuted
         }
         this.reduxStore.dispatch(actions.userJoined(user))
     }
@@ -41,6 +41,10 @@ export default class ConferenceHandler {
 
     onTrackAdded(userId, track) {
         this.reduxStore.dispatch(actions.videoTrackAdded(userId, track.getId()))
+    }
+
+    onUserCameraMuted(userId, isMuted) {
+        this.reduxStore.dispatch(actions.userCameraMuted(userId, isMuted));
     }
 
 }

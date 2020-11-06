@@ -28,13 +28,15 @@ export class Video extends Component {
 
     componentWillUnmount() {
         // TODO: beware of chrome bug were we get black screen when chaning src of video
-        // this._track.detach(this._videoElement);
+        this._track.detach(this._videoElement);
     }
 
     render() {
+        let hide = this.props.hide ? "none": "initial";
         return <video
             data-testid={this.props.id + "-video-id"}
             id={this.props.id}
+            style={{display: hide}}
             autoPlay={true}
             className={this.props.className}
             ref={this._setVideoElement}

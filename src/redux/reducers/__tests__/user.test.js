@@ -96,7 +96,7 @@ describe('by id reducer', () => {
     })
 })
 
-describe('by id reducer', () => {
+describe('focused reducer', () => {
     let initialState, expectedFocused;
     beforeEach(() => {
         initialState = {
@@ -138,6 +138,39 @@ describe('by id reducer', () => {
         expectedFocused.userId = initialState.focused.userId;
         let result = user(initialState, action);
         expect(result.focused).toEqual(expectedFocused)
+    })
+});
+
+describe('me reducer', () => {
+    let initialState, expectedFocused;
+    beforeEach(() => {
+        initialState = {
+            me: {}
+        }
+    });
+
+    it('should create me user on the store', () => {
+        let action = actions.meUserCreated("user1");
+        let expectedMe = {
+            userId: 'user1',
+            isCameraMuted: true
+        }
+        expect(user(initialState, action).me).toEqual(expectedMe);
+    })
+
+    it('should change mute state of me user', () => {
+        initialState.me = {
+            userId: 'user1',
+            isCameraMuted: false
+        }
+
+        let action = actions.myCameraMuted(true);
+
+        let expectedMe = {
+            userId: 'user1',
+            isCameraMuted: true,
+        }
+        expect(user(initialState, action).me).toEqual(expectedMe);
     })
 });
 
@@ -262,9 +295,29 @@ describe('Store selectors', () => {
             expect(result).toEqual(expectedUsers)
         })
     })
+
+    describe('on getMeUser', () => {
+        beforeEach(() => {
+            initialState = {
+                byId: {
+                    user1: createUser('user1')
+                },
+                me: {
+                    userId: 'user1',
+                    isCameraMuted: true
+                }
+            }
+        })
+
+        it("should get me user", () => {
+            let expectedUser = createUser('user1');
+            expectedUser.isCameraMuted = true
+            expect(userSelectors.getMeUser(initialState)).toEqual(expectedUser)
+        })
+    })
 });
 
-function createUser(userId, username) {
+function createUser(userId, username='Jhon Doe') {
     return {
         userId,
         connected: true,

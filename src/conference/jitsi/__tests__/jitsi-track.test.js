@@ -1,4 +1,4 @@
-import JitsiTrack from './jitsi-track'
+import JitsiTrack from '../jitsi-track'
 let jitsiTrack;
 let _jitsitTrackId;
 let attachMock;

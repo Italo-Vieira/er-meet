@@ -1,4 +1,4 @@
-import { USER_JOINED, MUTE_USER, USER_NAME_CHANGED, USER_LEFT, VIDEO_TRACK_ADDED, FOCUSED_USER_CHANGED, ME_USER_CREATED } from '../actions/actionTypes';
+import { USER_JOINED, USER_CAMERA_MUTE_CHANGED, USER_NAME_CHANGED, USER_LEFT, VIDEO_TRACK_ADDED, FOCUSED_USER_CHANGED, ME_USER_CREATED, MY_CAMERA_MUTED } from '../actions/actionTypes';
 import { combineReducers } from 'redux';
 import conferenceProvider from '../../conference'
 
@@ -9,7 +9,7 @@ export const byId = (state = {}, action) => {
             newState[action.user.userId] = action.user;
             return newState;
         case USER_LEFT:
-        case MUTE_USER:
+        case USER_CAMERA_MUTE_CHANGED:
         case USER_NAME_CHANGED:
         case VIDEO_TRACK_ADDED:
             newState = { ...state };
@@ -49,7 +49,8 @@ const focused = (state = {}, action) => {
 const me = (state = {}, action) => {
     switch (action.type) {
         case ME_USER_CREATED:
-            return { id: action.user.id };
+        case MY_CAMERA_MUTED:
+            return { ...state, ...action.user};
         default:
             return state;
     }
@@ -79,7 +80,7 @@ export const getFocusedUser = (state) => {
 export const getConnectedUsers = (state) => {
     return state.allIds.map(id => state.byId[id]).filter(u => u.connected) || [];
 }
-
+// TODO: Deep copying all users might have a peformance impact
 export const getMediaUsers = (state) => {
     let users = getConnectedUsers(state).map(u => JSON.parse(JSON.stringify(u)));
     users.forEach(u => u.videoTrack = conferenceProvider.getTrack(u.videoTrackId));
@@ -95,4 +96,8 @@ export const getFocusedMediaUser = (state) => {
 
     user.videoTrack = conferenceProvider.getTrack(user.videoTrackId);
     return user;
+}
+
+export const getMeUser = (state) => {
+    return {...state.byId[state.me.userId], ...state.me}
 }

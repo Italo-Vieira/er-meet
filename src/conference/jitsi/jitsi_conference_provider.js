@@ -2,7 +2,7 @@
 import { ConferenceProvider } from '../conference_provider'
 import JitsiTrack from './jitsi-track'
 
-// JitsiMeetJS.setLogLevel(JitsiMeetJS.logLevels.ERROR);
+JitsiMeetJS && JitsiMeetJS.setLogLevel(JitsiMeetJS.logLevels.ERROR);
 
 
 const confOptions = {
@@ -204,6 +204,12 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
         });
 
         this.room.on(JitsiMeetJS.events.conference.TRACK_MUTE_CHANGED, track => {
+            if(track.isLocal()) {
+                return;
+            }
+            if(track.isVideoTrack()) {
+                this.conferenceHandler.onUserCameraMuted(track.getParticipantId(), track.isMuted())
+            }
             console.log(`track muted ${track.getType()} - ${track.isMuted()}`);
         });
 
@@ -221,6 +227,8 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
     }
 
     toggleCamera() {
+        console.log("toggling camera")
+        let myUserId = this.room.myUserId();
         if (this.localCamera && !this.localCamera.isMuted()) {
             this.localCamera.mute();
             return;
@@ -228,7 +236,7 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
             this.localCamera.unmute()
             return;
         }
-        console.log("toggling camera")
+
         JitsiMeetJS.createLocalTracks({
             devices: ['video'],
             ...videoOptions,
@@ -238,14 +246,17 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
                 this.localTracks.push(tracks[0]);
                 this.localTracks[this.localTracks.length - 1].addEventListener(
                     JitsiMeetJS.events.track.TRACK_MUTE_CHANGED,
-                    () => console.log('local track muted'));
+                    (track) => {
+                        console.log(track);
+                        this.conferenceHandler.onUserCameraMuted(myUserId, track.isMuted());
+
+                    });
                 this.localTracks[this.localTracks.length - 1].addEventListener(
                     JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED,
                     () => console.log('local track stoped'));
                 console.log("tracks", tracks);
-                setTimeout(() => {
-                    this.room.addTrack(tracks[0]);
-                }, 5000)
+                this.room.addTrack(tracks[0]);
+                this.conferenceHandler.onUserCameraMuted(myUserId, false);
                 this.localCamera = tracks[0];
                 console.log("aqui", this.localCamera)
             })

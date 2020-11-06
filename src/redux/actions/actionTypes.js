@@ -7,6 +7,8 @@ export const USER_LEFT = 'USER_LEFT';
 export const VIDEO_TRACK_ADDED = 'VIDEO_TRACK_ADDED';
 export const FOCUSED_USER_CHANGED= 'FOCUSED_USER_CHANGED';
 export const ME_USER_CREATED = 'ME_USER_CREATED';
+export const MY_CAMERA_MUTED = 'MY_CAMERA_MUTED';
+export const USER_CAMERA_MUTE_CHANGED = 'USER_CAMERA_MUTE_CHANGED';
 /* Page events */
 export const CHANGE_PAGE = 'CHANGE_PAGE';
 

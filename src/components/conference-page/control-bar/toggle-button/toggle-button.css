@@ -1,0 +1,7 @@
+
+.redSlash {
+    border-bottom: 2pt solid red;
+    transform: translateY(-14pt) translateX(17pt) rotate(45deg);
+    width: 31pt;
+    position: absolute;
+}

@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
 import './control-bar.css';
 import { BsMic, BsDisplay, BsCameraVideo, BsPeople } from 'react-icons/bs';
-import ControlButton from '../control-button';
+import ControlButton from './control-button';
 import conferenceProvider from '../../../conference';
+import ToggleButton from './toggle-button';
 
 export default class ControlBar extends Component {
 
     render() {
-        let { togglePartList } = this.props;
+        let { togglePartList, meUser } = this.props;
+
         let toggleCamera = conferenceProvider.toggleCamera.bind(conferenceProvider);
         let shareScreen = conferenceProvider.shareScreen.bind(conferenceProvider);
         return (
             <div className="bottomBar">
                 <div className="relative">
                     <div className="leftControls">
-                        <ControlButton text="Mute">
+                        <ToggleButton text="Mute" isToggled={true}>
                             <BsMic className="cameraIcon" />
-                        </ControlButton>
-                        <ControlButton onClick={toggleCamera} text="Camera">
+                        </ToggleButton>
+                        <ToggleButton onClick={toggleCamera} text="Camera" isToggled={meUser.isCameraMuted}>
                             <BsCameraVideo className="cameraIcon" />
-                        </ControlButton>
+                        </ToggleButton>
                     </div>
                 </div>
                 <div className="centerControls">
@@ -36,8 +38,6 @@ export default class ControlBar extends Component {
                         <button className="endMeetingButton">End Meeting</button>
                     </div>
                 </div>
-
-
             </div>
         );
     }
