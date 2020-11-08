@@ -70,12 +70,12 @@ const confOptions = {
         90: 2
     },
     videoQuality: {
-            maxBitratesVideo: {
+        maxBitratesVideo: {
             low: 200000,
             standard: 500000,
             high: 1500000
         },
-            },
+    },
     startBitrate: "800",
     disableAudioLevels: false,
     disableSuspendVideo: true,
@@ -137,7 +137,7 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
         this.connection = undefined;
         this.localTracks = [];
         this._tracks = {};
-        this.localCamera = undefined;
+        this._localCamera = undefined;
     }
 
     init(conferenceHandler) {
@@ -168,21 +168,28 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
     _onConnectionSuccess() {
         this.room = this.connection.initJitsiConference(this.roomName, confOptions);
         this.room.on(JitsiMeetJS.events.conference.TRACK_ADDED, (track) => {
-            const participant = track.getParticipantId();
-            if (track.isLocal()) {
-                //   return;
-            } else if (!this.remoteTracks[participant]) {
-                this.remoteTracks[participant] = [];
-            }
-            console.log("track added", track)
-
+            console.log("track added", track);
             let trackWrapper = new JitsiTrack(track);
             this._tracks[trackWrapper.getId()] = trackWrapper;
-            this.conferenceHandler.onTrackAdded(participant, trackWrapper)
-            //track.attach($('#screenShare')[0]);
+            if (track.isVideoTrack()) {
+                if (track.isLocal()) {
+                    this.conferenceHandler.onVideoTrackAdded(this.room.myUserId(), trackWrapper);
+                } else {
+                    this.conferenceHandler.onVideoTrackAdded(track.getParticipantId(), trackWrapper);
+                }
+            }
+
         });
 
         this.room.on(JitsiMeetJS.events.conference.TRACK_REMOVED, track => {
+            if (track.isVideoTrack()) {
+                if (track.isLocal()) {
+                    this.conferenceHandler.onVideoTrackRemoved(this.room.myUserId(), track.getId());
+                } else {
+                    this.conferenceHandler.onVideoTrackRemoved(track.getParticipantId(), track.getId())
+                }
+            }
+            delete this._tracks[track.getId()];
             console.log(`track removed!!!${track}`);
         });
 
@@ -204,11 +211,12 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
         });
 
         this.room.on(JitsiMeetJS.events.conference.TRACK_MUTE_CHANGED, track => {
-            if(track.isLocal()) {
-                return;
-            }
-            if(track.isVideoTrack()) {
-                this.conferenceHandler.onUserCameraMuted(track.getParticipantId(), track.isMuted())
+            if (track.getType() === 'video') {
+                if (track.isLocal()) {
+                    this.conferenceHandler.onUserCameraMuted(this.room.myUserId(), track.isMuted());
+                } else {
+                    this.conferenceHandler.onUserCameraMuted(track.getParticipantId(), track.isMuted())
+                }
             }
             console.log(`track muted ${track.getType()} - ${track.isMuted()}`);
         });
@@ -219,6 +227,7 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
                 this.conferenceHandler.onDisplayNameChanged(userID, displayName);
 
             });
+
         this.room.on(
             JitsiMeetJS.events.conference.TRACK_AUDIO_LEVEL_CHANGED,
             (userID, audioLevel) => console.log(`${userID} - ${audioLevel}`));
@@ -226,61 +235,86 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
         this.room.join();
     }
 
-    toggleCamera() {
-        console.log("toggling camera")
-        let myUserId = this.room.myUserId();
-        if (this.localCamera && !this.localCamera.isMuted()) {
-            this.localCamera.mute();
-            return;
-        } else if(this.localCamera && this.localCamera.isMuted()) {
-            this.localCamera.unmute()
+    async toggleCamera() {
+        if (this._screenShareTrack) {
+            this._freeDesktopTrack();
+        }
+
+        if (this._localCamera) {
+            if (this._localCamera.isMuted()) {
+                this._localCamera.unmute()
+            } else {
+                this._localCamera.mute();
+            }
             return;
         }
 
-        JitsiMeetJS.createLocalTracks({
-            devices: ['video'],
-            ...videoOptions,
-            cameraDeviceId : 'ad500a0881edc85f76686889839a3728c56b9b9288a32cb61104bf7f790e43ab'
-        })
-            .then(tracks => {
-                this.localTracks.push(tracks[0]);
-                this.localTracks[this.localTracks.length - 1].addEventListener(
-                    JitsiMeetJS.events.track.TRACK_MUTE_CHANGED,
-                    (track) => {
-                        console.log(track);
-                        this.conferenceHandler.onUserCameraMuted(myUserId, track.isMuted());
+        try {
+            let track = await this._getLocalTrack('video');
 
-                    });
-                this.localTracks[this.localTracks.length - 1].addEventListener(
-                    JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED,
-                    () => console.log('local track stoped'));
-                console.log("tracks", tracks);
-                this.room.addTrack(tracks[0]);
-                this.conferenceHandler.onUserCameraMuted(myUserId, false);
-                this.localCamera = tracks[0];
-                console.log("aqui", this.localCamera)
-            })
-            .catch(error => console.log(error));
+            let myUserId = this.room.myUserId();
+            this.conferenceHandler.onUserCameraMuted(myUserId, false);
+            this._localCamera = track;
+            this.room.addTrack(track)
+        } catch (e) {
+            console.log("error while creating local track", e);
+        }
     }
 
-    shareScreen() {
-        JitsiMeetJS.createLocalTracks({
-            devices: ['desktop']
-        })
-            .then(tracks => {
-                this.localTracks.push(tracks[0]);
-                this.localTracks[this.localTracks.length - 1].addEventListener(
-                    JitsiMeetJS.events.track.TRACK_MUTE_CHANGED,
-                    () => console.log('local track muted'));
-                this.localTracks[this.localTracks.length - 1].addEventListener(
-                    JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED,
-                    () => console.log('local track stoped'));
-                this.room.addTrack(this.localTracks[this.localTracks.length - 1]);
-            })
-            .catch(error => console.log(error));
+    async shareScreen() {
+        if (this._screenShareTrack) {
+            this._freeDesktopTrack();
+            return;
+        }
+
+        this._freeCameraTrack();
+        try {
+            let track = await this._getLocalTrack('desktop')
+
+            this.room.addTrack(track);
+            this._screenShareTrack = track;
+        } catch (e) {
+            console.log("something went wrong", e);
+        }
+
+    }
+
+    async _getLocalTrack(trackType) {
+        let tracks = await JitsiMeetJS.createLocalTracks({ devices: [trackType] })
+
+        let localTrack = tracks[0];
+        this.localTracks.push(localTrack);
+        localTrack.addEventListener(
+            JitsiMeetJS.events.track.TRACK_MUTE_CHANGED,
+            () => console.log('local track muted'));
+        localTrack.addEventListener(
+            JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED,
+            () => console.log('local track stoped'));
+
+        return localTrack;
+    }
+
+    _freeDesktopTrack() {
+        if (this._screenShareTrack) {
+            this._screenShareTrack.dispose();
+            this._screenShareTrack = null;
+        }
+
+    }
+
+    _freeCameraTrack() {
+        if (this._localCamera) {
+            this._localCamera.dispose();
+            this.conferenceHandler.onUserCameraMuted(this.room.myUserId(), true);
+            this._localCamera = null;
+        }
     }
 
     getTrack(trackId) {
         return this._tracks[trackId];
+    }
+
+    _addTrack(track) {
+        this._tracks[track.getId()] = track
     }
 }

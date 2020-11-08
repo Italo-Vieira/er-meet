@@ -1,23 +1,30 @@
-import { USER_JOINED, USER_CAMERA_MUTE_CHANGED, USER_NAME_CHANGED, USER_LEFT, VIDEO_TRACK_ADDED, FOCUSED_USER_CHANGED, ME_USER_CREATED, MY_CAMERA_MUTED } from '../actions/actionTypes';
+import { USER_JOINED, USER_CAMERA_MUTE_CHANGED, USER_NAME_CHANGED, USER_LEFT, VIDEO_TRACK_ADDED, FOCUSED_USER_CHANGED, ME_USER_CREATED, SCREEN_SHARE_STARTED, SCREEN_SHARE_STOPPED, VIDEO_TRACK_REMOVED } from '../actions/actionTypes';
 import { combineReducers } from 'redux';
 import conferenceProvider from '../../conference'
 
 export const byId = (state = {}, action) => {
+    let newState = {...state};
     switch (action.type) {
         case USER_JOINED:
-            var newState = { ...state };
             newState[action.user.userId] = action.user;
             return newState;
         case USER_LEFT:
         case USER_CAMERA_MUTE_CHANGED:
         case USER_NAME_CHANGED:
         case VIDEO_TRACK_ADDED:
-            newState = { ...state };
-            var oldUser = state[action.user.userId]
+        case VIDEO_TRACK_REMOVED:
+            let oldUser = state[action.user.userId]
             return {
                 ...state,
                 [action.user.userId]: { ...oldUser, ...action.user }
             };
+        case SCREEN_SHARE_STARTED:
+            newState[action.user.userId] = action.user;
+            
+            return newState;
+        case SCREEN_SHARE_STOPPED:
+            delete newState[action.user.userId]
+            return newState;
         default:
             return state;
     }
@@ -49,7 +56,6 @@ const focused = (state = {}, action) => {
 const me = (state = {}, action) => {
     switch (action.type) {
         case ME_USER_CREATED:
-        case MY_CAMERA_MUTED:
             return { ...state, ...action.user};
         default:
             return state;

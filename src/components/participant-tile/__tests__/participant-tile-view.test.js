@@ -8,7 +8,8 @@ describe('participant tile tests', () => {
     beforeEach(() => {
         trackMock = {
             attach: jest.fn().mockName("attachFunc"),
-            isReady: jest.fn().mockName("isReadyFunc")
+            isReady: jest.fn().mockName("isReadyFunc"),
+            detach: jest.fn().mockName("detachFunc")
         }
         onClickMock = jest.fn().mockName("onClickMock");
 

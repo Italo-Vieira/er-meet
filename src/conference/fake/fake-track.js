@@ -1,4 +1,3 @@
-const { BsThreeDotsVertical } = require("react-icons/bs");
 
 export default class FakeTrack {
     constructor(id, videoName) {

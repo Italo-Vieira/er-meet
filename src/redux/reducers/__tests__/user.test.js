@@ -61,24 +61,6 @@ describe('by id reducer', () => {
         expect(user({ ...initialState }, userLeftAction).byId).toEqual(expectedById);
     })
 
-    it('should mute user', () => {
-        let muteUserAction = actions.muteUser("userIdMock", true);
-        let userData = expectedById.userIdMock;
-        userData.mute = true;
-
-        expect(user({ ...initialState }, muteUserAction).byId).toEqual(expectedById);
-    })
-
-    it('should unmute user', () => {
-        let muteUserAction = actions.muteUser("userIdMock", false);
-
-        initialState.byId.userIdMock.mute = true;
-
-        expectedById.userIdMock.mute = false;
-
-        expect(user({ ...initialState }, muteUserAction).byId).toEqual(expectedById);
-    })
-
     it('should change username', () => {
         let userNamedChangedAction = actions.userNameChanged("userIdMock", "Italo V");
         let userData = expectedById.userIdMock;
@@ -93,6 +75,17 @@ describe('by id reducer', () => {
         userData.videoTrackId = "videoTrackId";
 
         expect(user({ ...initialState }, videoTrackAddedAction).byId).toEqual(expectedById);
+    })
+
+    it('should remove user video track', () => {
+        let expectedUser = JSON.parse(JSON.stringify(initialState.byId.userIdMock));
+
+        initialState.byId.userIdMock.videoTrackId = 'track1';
+        let action = actions.videoTrackRemoved('userIdMock', 'track1');
+
+        expectedUser.videoTrackId = undefined;
+        expect(user({ ...initialState }, action).byId.userIdMock).toEqual(expectedUser);
+        
     })
 })
 
@@ -153,22 +146,6 @@ describe('me reducer', () => {
         let action = actions.meUserCreated("user1");
         let expectedMe = {
             userId: 'user1',
-            isCameraMuted: true
-        }
-        expect(user(initialState, action).me).toEqual(expectedMe);
-    })
-
-    it('should change mute state of me user', () => {
-        initialState.me = {
-            userId: 'user1',
-            isCameraMuted: false
-        }
-
-        let action = actions.myCameraMuted(true);
-
-        let expectedMe = {
-            userId: 'user1',
-            isCameraMuted: true,
         }
         expect(user(initialState, action).me).toEqual(expectedMe);
     })

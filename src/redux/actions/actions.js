@@ -72,6 +72,14 @@ export const videoTrackAdded = (userId, videoTrackId) => ({
     }
 })
 
+export const videoTrackRemoved = (userId, videoTrackId) => ({
+    type: actionTypes.VIDEO_TRACK_REMOVED,
+    user: {
+        userId,
+        videoTrackId: undefined
+    }
+})
+
 export const focusedUserChanged = (userId) => ({
     type: actionTypes.FOCUSED_USER_CHANGED,
     userId
@@ -88,6 +96,25 @@ export const myCameraMuted = (isCameraMuted) => ({
     type: actionTypes.MY_CAMERA_MUTED,
     user: {
         isCameraMuted
+    }
+})
+
+export const screenShareStarted = (userId, desktopTrackId) => ({
+    type: actionTypes.SCREEN_SHARE_STARTED,
+    user: {
+        userId: userId + "-desktop-track",
+        videoTrackId: desktopTrackId,
+        connected: true,
+        username: "share"
+    }
+})
+
+export const screenShareStopped = (userId, desktopTrackId) => ({
+    type: actionTypes.SCREEN_SHARE_STOPPED,
+    user: {
+        userId: userId + "-desktop-track",
+        videoTrackId: desktopTrackId,
+        connected: true
     }
 })
 
