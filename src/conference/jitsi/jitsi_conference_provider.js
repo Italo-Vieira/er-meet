@@ -211,7 +211,7 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
         });
 
         this.room.on(JitsiMeetJS.events.conference.TRACK_MUTE_CHANGED, track => {
-            if (track.getType() === 'video') {
+            if (track.isVideoTrack() && track.videoType === 'camera') {
                 if (track.isLocal()) {
                     this.conferenceHandler.onUserCameraMuted(this.room.myUserId(), track.isMuted());
                 } else {
@@ -289,24 +289,41 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
             () => console.log('local track muted'));
         localTrack.addEventListener(
             JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED,
-            () => console.log('local track stoped'));
+            () => {
+                switch (localTrack.videoType) {
+                    case 'desktop':
+                        this._freeDesktopTrack();
+                        break;
+                    case 'video':
+                        this._freeCameraTrack();
+                        break;
+                }
+                console.log("local track stopped");
+            });
 
         return localTrack;
     }
 
     _freeDesktopTrack() {
-        if (this._screenShareTrack) {
-            this._screenShareTrack.dispose();
-            this._screenShareTrack = null;
+        try {
+            if (this._screenShareTrack) {
+                this._screenShareTrack.dispose();
+                this._screenShareTrack = null;
+            }
+        } catch (e) {
+            console.warn('error while disposing desktop track', e);
         }
-
     }
 
     _freeCameraTrack() {
-        if (this._localCamera) {
-            this._localCamera.dispose();
-            this.conferenceHandler.onUserCameraMuted(this.room.myUserId(), true);
-            this._localCamera = null;
+        try {
+            if (this._localCamera) {
+                this._localCamera.dispose();
+                this.conferenceHandler.onUserCameraMuted(this.room.myUserId(), true);
+                this._localCamera = null;
+            }
+        } catch (e) {
+            console.warn('error while disposing camera track', e);
         }
     }
 

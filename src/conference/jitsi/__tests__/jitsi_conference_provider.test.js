@@ -147,7 +147,7 @@ describe('jitsi conference provider tests', () => {
 
     describe('On track mute changed', () => {
         it('should call onUserCameraMuted if type is video', () => {
-            let mockedTrack = mockJitsiInternalTrack('track1', 'user2', false, 'video');
+            let mockedTrack = mockJitsiInternalTrack('track1', 'user2', false, 'camera');
 
             mockedTrack.mute();
             let isMuted = true;
@@ -158,7 +158,7 @@ describe('jitsi conference provider tests', () => {
         })
 
         it('should call onUserCameraMuted with my user id if track is local and video', () => {
-            let mockedTrack = mockJitsiInternalTrack('track1', myUserId, true, 'video');
+            let mockedTrack = mockJitsiInternalTrack('track1', myUserId, true, 'camera');
 
             mockedTrack.mute();
             let isMuted = true;
@@ -172,7 +172,7 @@ describe('jitsi conference provider tests', () => {
     describe('On toggle camera', () => {
         let mockedTrack;
         beforeEach(() => {
-            mockedTrack = mockJitsiInternalTrack("locaTrackId", myUserId, true, 'video');
+            mockedTrack = mockJitsiInternalTrack("locaTrackId", myUserId, true, 'camera');
 
             JitsiMeetJS.createLocalTracks = function createLocalTracks(opts) {
                 return Promise.resolve([mockedTrack])
@@ -261,7 +261,7 @@ describe('jitsi conference provider tests', () => {
 
         it('should cleanup video track if it\'s active', async () => {
             expect.assertions(2);
-            let mockedCameraTrack = mockJitsiInternalTrack('cameraTrackId', myUserId, true, 'video');
+            let mockedCameraTrack = mockJitsiInternalTrack('cameraTrackId', myUserId, true, 'camera');
             conferenceProvider._localCamera = mockedCameraTrack;
 
             await conferenceProvider.shareScreen();
@@ -313,10 +313,11 @@ function mockConnection(mockRoom) {
     }
 }
 
-function mockJitsiInternalTrack(trackId = '', partId = '', isLocal = false, type = 'video') {
+function mockJitsiInternalTrack(trackId = '', partId = '', isLocal = false, type = 'camera') {
     let isMuted = false;
     let listeners = {}
     return {
+        videoType: type,
         getId() {
             return trackId;
         },
@@ -338,10 +339,10 @@ function mockJitsiInternalTrack(trackId = '', partId = '', isLocal = false, type
             return isLocal ? undefined : partId;
         },
         isVideoTrack() {
-            return type === 'video' || type === 'desktop'
+            return type === 'camera' || type === 'desktop'
         },
         getType() {
-            return type;
+            return type === 'camera' || type === 'desktop' ? 'video' : 'audio'
         },
         addEventListener(key, func) {
             listeners[key] = listeners[key] || [];
