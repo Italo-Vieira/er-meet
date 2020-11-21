@@ -11,6 +11,7 @@ export default class TileList extends Component {
             user={u}
             onTileClick={changeUserFocus}
             className="videoTile"
+            renderAudio={true}
         ></ParticipantTile>);
 
         return <div className="tile-list">

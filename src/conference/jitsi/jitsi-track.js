@@ -25,4 +25,16 @@ export default class JitsiTrack extends Track{
     isReady() {
         return !this._jitsiTrack.isMuted() && this._jitsiTrack.isActive();
     }
+
+    isMuted() {
+       return this._jitsiTrack.isMuted(); 
+    }
+
+    mute(mute) {
+        if(mute) {
+            return this._jitsiTrack.mute();
+        } else {
+            return this._jitsiTrack.unmute();
+        }
+    }
 }

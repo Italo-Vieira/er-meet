@@ -1,6 +1,7 @@
 import React from 'react';
 import ParticipantRow from './participant-row'
 import './participant-list.css'
+import conferenceProvider from '../../conference';
 
 export default class ParticipantList extends React.Component {
     render() {
@@ -10,8 +11,9 @@ export default class ParticipantList extends React.Component {
             name={user.username}
             key={user.userId}
             userId={user.userId}
-            mute={user.mute}
-            onMuteClick={muteUser}></ParticipantRow>)
+            mute={user.isMicMuted}
+            onMuteClick={() => {conferenceProvider.muteParticipant(user.userId, !user.isMicMuted)}}>
+            </ParticipantRow>)
         let closed = isOpen ? '' : 'closed';
 
         return <div className={`participantList ${closed}`} >

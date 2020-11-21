@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Video } from '../media';
+import { Video, Audio } from '../media';
 import './participant-tile.css'
 
 import { BsFillPersonFill } from 'react-icons/bs';
@@ -17,10 +17,11 @@ export default class ParticipantTile extends Component {
 
     render() {
         let background;
-        let { user, suppressOverlay, big } = this.props;
+        let { user, suppressOverlay, big, renderAudio } = this.props;
         let videoTrack = user.videoTrack;
+        let audioTrack = user.audioTrack;
 
-        if (videoTrack && videoTrack.isReady()) {
+        if (videoTrack?.isReady()) {
             background = <Video
                 id={user.userId}
                 track={videoTrack}
@@ -28,6 +29,15 @@ export default class ParticipantTile extends Component {
         } else {
             background = <div data-testid="tile-placeholder" className="defaultTileBg"><BsFillPersonFill className='tileUserIcon' /></div>
         }
+
+        let audioTrackEl;
+        if (renderAudio && audioTrack?.isReady()) {
+            audioTrackEl = <Audio
+                id={user.userId}
+                track={audioTrack}
+            ></Audio>
+        } 
+
 
         let overlay = <div data-testid="tile-overlay-id">
             <span>{user.username}</span>
@@ -42,9 +52,12 @@ export default class ParticipantTile extends Component {
             className += " big"
         }
 
-        return <div data-testid="part-tile-id" onClick={this._onClick} className={className}>
+        let divId = 'part-tile' + (big ?'-big': '') + `-${user.userId}`;
+
+        return <div id={divId} data-testid="part-tile-id" onClick={this._onClick} className={className}>
             {overlay}
             {background}
+            {audioTrackEl}
         </div>;
     }
 }

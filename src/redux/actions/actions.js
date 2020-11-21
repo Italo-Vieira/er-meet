@@ -15,6 +15,7 @@ export const userJoined = value => ({
     type: actionTypes.USER_JOINED,
     user: {
         connected: true,
+        isMicMuted: true,
         ...value,
     }
 });
@@ -44,7 +45,7 @@ export const userCameraMuted = (userId, isCameraMuted) => ({
 })
 
 export const userMicMuted = (userId, isMicMuted) => ({
-    type: actionTypes.USER_CAMERA_MUTE_CHANGED,
+    type: actionTypes.USER_MIC_MUTE_CHANGED,
     user: {
         userId,
         isMicMuted,
@@ -77,6 +78,22 @@ export const videoTrackRemoved = (userId, videoTrackId) => ({
     user: {
         userId,
         videoTrackId: undefined
+    }
+})
+
+export const audioTrackAdded = (userId, audioTrackId) => ({
+    type: actionTypes.AUDIO_TRACK_ADDED,
+    user: {
+        userId,
+        audioTrackId
+    }
+})
+
+export const audioTrackRemoved = (userId, audioTrackId) => ({
+    type: actionTypes.AUDIO_TRACK_REMOVED,
+    user: {
+        userId,
+        audioTrackId: undefined
     }
 })
 

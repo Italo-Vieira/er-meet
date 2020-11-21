@@ -177,6 +177,13 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
                 } else {
                     this.conferenceHandler.onVideoTrackAdded(track.getParticipantId(), trackWrapper);
                 }
+            } else {
+                if(track.isLocal()) {
+                    this.conferenceHandler.onUserMuted(this.room.myUserId(), track.isMuted());
+                } else {
+                    this.conferenceHandler.onAudioTrackAdded(track.getParticipantId(), trackWrapper);
+                    this.conferenceHandler.onUserMuted(track.getParticipantId(), track.isMuted());
+                }
             }
 
         });
@@ -187,6 +194,10 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
                     this.conferenceHandler.onVideoTrackRemoved(this.room.myUserId(), track.getId());
                 } else {
                     this.conferenceHandler.onVideoTrackRemoved(track.getParticipantId(), track.getId())
+                }
+            } else {
+                if (track.isLocal()) {
+                    
                 }
             }
             delete this._tracks[track.getId()];
@@ -216,6 +227,15 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
                     this.conferenceHandler.onUserCameraMuted(this.room.myUserId(), track.isMuted());
                 } else {
                     this.conferenceHandler.onUserCameraMuted(track.getParticipantId(), track.isMuted())
+                }
+            } else {
+                if (track.isLocal()) {
+                    this._localMic.dispose();
+                    this._localMic = null;
+                    this.conferenceHandler.onUserMuted(this.room.myUserId(), true);
+                } else {
+                    this.conferenceHandler.onUserMuted(track.getParticipantId(), track.isMuted());
+
                 }
             }
             console.log(`track muted ${track.getType()} - ${track.isMuted()}`);
@@ -277,6 +297,35 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
             console.log("something went wrong", e);
         }
 
+    }
+
+    async toggleAudio() {
+        if (this._localMic) {
+            if (this._localMic.isMuted()) {
+                this._localMic.unmute()
+            } else {
+                this._localMic.mute();
+            }
+            return;
+        }
+
+        try {
+            let track = await this._getLocalTrack('audio');
+
+            this._localMic = track;
+            this.room.addTrack(track)
+        } catch (e) {
+            console.log("error while creating local track", e);
+        }       
+    }
+
+    async muteParticipant(userId, mute) { 
+
+        if(this.room.myUserId() === userId) {
+            return this.toggleAudio();
+        } else {
+            return this.room.muteParticipant(userId, mute);
+        }
     }
 
     async _getLocalTrack(trackType) {

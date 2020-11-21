@@ -1,28 +1,32 @@
-import { USER_JOINED, USER_CAMERA_MUTE_CHANGED, USER_NAME_CHANGED, USER_LEFT, VIDEO_TRACK_ADDED, FOCUSED_USER_CHANGED, ME_USER_CREATED, SCREEN_SHARE_STARTED, SCREEN_SHARE_STOPPED, VIDEO_TRACK_REMOVED } from '../actions/actionTypes';
+import * as types from '../actions/actionTypes';
 import { combineReducers } from 'redux';
 import conferenceProvider from '../../conference'
 
 export const byId = (state = {}, action) => {
     let newState = {...state};
     switch (action.type) {
-        case USER_JOINED:
+        case types.USER_JOINED:
             newState[action.user.userId] = action.user;
             return newState;
-        case USER_LEFT:
-        case USER_CAMERA_MUTE_CHANGED:
-        case USER_NAME_CHANGED:
-        case VIDEO_TRACK_ADDED:
-        case VIDEO_TRACK_REMOVED:
+        case types.USER_LEFT:
+        case types.USER_CAMERA_MUTE_CHANGED:
+        case types.USER_MIC_MUTE_CHANGED:
+        case types.USER_NAME_CHANGED:
+        case types.VIDEO_TRACK_ADDED:
+        case types.VIDEO_TRACK_REMOVED:
+        case types.AUDIO_TRACK_ADDED:
+        case types.AUDIO_TRACK_REMOVED:
+
             let oldUser = state[action.user.userId]
             return {
                 ...state,
                 [action.user.userId]: { ...oldUser, ...action.user }
             };
-        case SCREEN_SHARE_STARTED:
+        case types.SCREEN_SHARE_STARTED:
             newState[action.user.userId] = action.user;
             
             return newState;
-        case SCREEN_SHARE_STOPPED:
+        case types.SCREEN_SHARE_STOPPED:
             delete newState[action.user.userId]
             return newState;
         default:
@@ -32,7 +36,7 @@ export const byId = (state = {}, action) => {
 
 const allIds = (state = [], action) => {
     switch (action.type) {
-        case USER_JOINED:
+        case types.USER_JOINED:
             return [...state, action.user.userId]
         default:
             return state;
@@ -41,9 +45,9 @@ const allIds = (state = [], action) => {
 
 const focused = (state = {}, action) => {
     switch (action.type) {
-        case FOCUSED_USER_CHANGED:
+        case types.FOCUSED_USER_CHANGED:
             return { userId: action?.userId };
-        case VIDEO_TRACK_ADDED:
+        case types.VIDEO_TRACK_ADDED:
             if (state.userId === undefined)
                 return { userId: action.user.userId }
             else
@@ -55,7 +59,7 @@ const focused = (state = {}, action) => {
 
 const me = (state = {}, action) => {
     switch (action.type) {
-        case ME_USER_CREATED:
+        case types.ME_USER_CREATED:
             return { ...state, ...action.user};
         default:
             return state;
@@ -86,10 +90,14 @@ export const getFocusedUser = (state) => {
 export const getConnectedUsers = (state) => {
     return state.allIds.map(id => state.byId[id]).filter(u => u.connected) || [];
 }
+
 // TODO: Deep copying all users might have a peformance impact
 export const getMediaUsers = (state) => {
     let users = getConnectedUsers(state).map(u => JSON.parse(JSON.stringify(u)));
-    users.forEach(u => u.videoTrack = conferenceProvider.getTrack(u.videoTrackId));
+    users.forEach(u =>  {
+        u.videoTrack = conferenceProvider.getTrack(u.videoTrackId);
+        u.audioTrack = conferenceProvider.getTrack(u.audioTrackId);
+    });
     return users;
 }
 
@@ -101,6 +109,7 @@ export const getFocusedMediaUser = (state) => {
     user = JSON.parse(JSON.stringify(user));
 
     user.videoTrack = conferenceProvider.getTrack(user.videoTrackId);
+    user.audioTrack = conferenceProvider.getTrack(user.audioTrackId);
     return user;
 }
 

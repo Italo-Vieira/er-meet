@@ -46,6 +46,7 @@ describe('by id reducer', () => {
             userIdMock: {
                 userId: "userIdMock",
                 connected: true,
+                isMicMuted: true,
                 username: "donuts"
             }
         }
@@ -207,12 +208,15 @@ describe('Store selectors', () => {
 
     it('should return focused user with their media track', () => {
         initialState.byId.user1.videoTrackId = "track1";
+        initialState.byId.user1.audioTrackId = "audioTrack1";
         initialState.focused.userId = 'user1';
 
         let expectedUser = JSON.parse(JSON.stringify(initialState.byId.user1));
 
         expectedUser.videoTrack = createTrack("track1");
+        expectedUser.audioTrack = createTrack("audioTrack1");
         conferenceProvider.addTrack(expectedUser.videoTrack);
+        conferenceProvider.addTrack(expectedUser.audioTrack);
 
         let result = userSelectors.getFocusedMediaUser(initialState);
 
@@ -243,11 +247,14 @@ describe('Store selectors', () => {
         beforeEach(() => {
             let { user1, user3, user5 } = initialState.byId;
             user1.videoTrackId = "track1";
+            user1.audioTrackId = "audioTrack1"
             user3.videoTrackId = "track3";
             user5.videoTrackId = "track5";
+
             conferenceProvider.addTrack(createTrack("track1"));
             conferenceProvider.addTrack(createTrack("track2"));
             conferenceProvider.addTrack(createTrack("track5"));
+            conferenceProvider.addTrack(createTrack("audioTrack1"));
         })
 
         it('should not change store state', () => {
@@ -261,9 +268,13 @@ describe('Store selectors', () => {
             let expectedUsers = []
             for (let user of Object.values(initialState.byId)) {
                 let copiedUser = JSON.parse(JSON.stringify(user));
-                let track = conferenceProvider.getTrack(copiedUser.videoTrackId);
-                if (track) {
-                    copiedUser.videoTrack = track;
+                let videoTrack = conferenceProvider.getTrack(copiedUser.videoTrackId);
+                if (videoTrack) {
+                    copiedUser.videoTrack = videoTrack;
+                }
+                let audioTrack = conferenceProvider.getTrack(copiedUser.audioTrackId);
+                if (audioTrack) {
+                    copiedUser.audioTrack = audioTrack;
                 }
                 expectedUsers.push(copiedUser);
             }

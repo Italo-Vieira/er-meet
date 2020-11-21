@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FiMonitor } from 'react-icons/fi';
 import { BsMic, BsMicMute } from 'react-icons/bs';
-import './participant-row.css'
+import './participant-row.css';
 
 export default class ParticipantRow extends Component {
     constructor(props) {

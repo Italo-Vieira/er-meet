@@ -12,11 +12,12 @@ export default class ControlBar extends Component {
 
         let toggleCamera = conferenceProvider.toggleCamera.bind(conferenceProvider);
         let shareScreen = conferenceProvider.shareScreen.bind(conferenceProvider);
+        let toggleMic = conferenceProvider.toggleAudio.bind(conferenceProvider);
         return (
             <div className="bottomBar">
                 <div className="relative">
                     <div className="leftControls">
-                        <ToggleButton text="Mute" isToggled={true}>
+                        <ToggleButton text="Mute" onClick={toggleMic} isToggled={meUser.isMicMuted}>
                             <BsMic className="cameraIcon" />
                         </ToggleButton>
                         <ToggleButton onClick={toggleCamera} text="Camera" isToggled={meUser.isCameraMuted}>

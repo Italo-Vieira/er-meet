@@ -47,8 +47,20 @@ export default class ConferenceHandler {
         this.reduxStore.dispatch(actions.videoTrackRemoved(userId, trackId))
     }
 
+    onAudioTrackAdded(userId, track) {
+        this.reduxStore.dispatch(actions.audioTrackAdded(userId, track.getId()))
+    }
+
+    onAudioTrackRemoved(userId, trackId) {
+        this.reduxStore.dispatch(actions.audioTrackRemoved(userId, trackId))
+    }
+
     onUserCameraMuted(userId, isMuted) {
         this.reduxStore.dispatch(actions.userCameraMuted(userId, isMuted));
+    }
+
+    onUserMuted(userId, isMuted) {
+        this.reduxStore.dispatch(actions.userMicMuted(userId, isMuted));
     }
 
     onScreenShareStarted(userId, trackId) {
