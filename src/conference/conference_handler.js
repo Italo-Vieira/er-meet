@@ -12,7 +12,8 @@ export default class ConferenceHandler {
             username,
             isCameraMuted
         }
-        this.reduxStore.dispatch(actions.userJoined(user))
+        this.reduxStore.dispatch(actions.userJoined(user));
+        this.reduxStore.dispatch(actions.changePage('conference'));
     }
 
     onMuteUser(userId, muteState) {

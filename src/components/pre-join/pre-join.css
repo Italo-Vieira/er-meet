@@ -1,0 +1,9 @@
+.preJoinPageBg {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background: rgb(71,66,66);
+    background: radial-gradient(circle, rgba(71,66,66,1) 0%, rgba(37,35,35,1) 100%);
+    display: flex;
+}
