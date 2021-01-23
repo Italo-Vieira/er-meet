@@ -7,3 +7,62 @@
     background: radial-gradient(circle, rgba(71,66,66,1) 0%, rgba(37,35,35,1) 100%);
     display: flex;
 }
+
+.pre-join-header {
+    height: 190px;
+    color: black;
+    background-color: white;
+}
+
+.select {
+    border: 0.5px solid #CBCBCB;
+    transition: border-color 100ms ease-in-out;
+    max-width: 495px;
+    height: 36px;
+}
+
+
+.select:hover {
+    border-color: #a7a7a7;
+}
+
+
+.select.is-fill {
+    width: 100%;
+}
+
+.select option:hover {
+    background-color: #4b8660;;
+}
+
+
+.fixed-aspect-ratio {
+    padding: 10px;
+    margin: 0px 5rem;
+    background: white;
+    box-sizing: border-box;
+    resize: horizontal;
+    max-width: 712px;
+    flex: 1;
+    height: calc(100% - 16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .fixed-aspect-ratio-content {
+    width: 100%;
+    padding-bottom: 75%;
+    position: relative;
+  }
+
+  .fixed-aspect-ratio-content > div {
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+  }
+
+  .fixed-aspect-ratio .participantTile.big {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+  }

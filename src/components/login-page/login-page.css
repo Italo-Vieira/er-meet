@@ -1,37 +1,290 @@
 .lightBg {
-    color: white;
     flex-direction: column;
     display: flex;
 }
 
-h1 {
-    font-family: Arial, Helvetica, sans-serif;
+input, select, .readonly-div {
+    line-height: 1.5em;
+    font-size: 1.5em;
+    border: 1px solid;
+    padding: 0px 25px;
+    font-weight: 200;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Helvetica, sans-serif;
+}
+h2 {
+    margin-bottom: 2em;
+    font-weight: 700;
+}
+h1, p, input, span, button, div, a, .label, .input, option, .readonly-div {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Helvetica, sans-serif;
+    font-weight: 400;
 }
 
-.loginPageBg {
+h1 {
+    font-size: 4em;
+}
+
+p {
+    font-size: 1.5em
+}
+
+.lading-page {
     width: 100%;
     height: 100%;
-    justify-content: center;
-    align-items: center;
-    background: rgb(71,66,66);
-    background: radial-gradient(circle, rgba(71,66,66,1) 0%, rgba(37,35,35,1) 100%);
     display: flex;
+    flex-direction: column;
 }
 
-.meetingNumberInput {
-    padding: 6px;
-    font-size: 18px;
-    border-width: 1px;
-    border-color: #CCCCCC;
-    background-color: #FFFFFF;
-    color: #000000;
-    border-style: solid;
-    border-radius: 6px;
-    box-shadow: 0px 0px 5px rgba(66,66,66,.75);
-    text-shadow: 0px 0px 1px rgba(66,66,66,.75);
-    width: 100%;
+.logo-name.dark .logo-extra-thin, .logo-name.dark .logo-semibold {
+    color: #2B3234;
 }
+
+.logo-name {
+    font-size: 3em;
+    font-family: 'Nunito Sans';
+    margin: 40px;
+    margin-top: 20px;
+}
+
+.logo-semibold {
+    font-weight: 700;
+    color: white;
+    font-family: 'Nunito Sans';
+}
+
+.logo-extra-thin {
+    font-weight: 300;    
+    color: white;
+    font-family: 'Nunito Sans';
+}
+
+.joint-button {
+    display: flex;
+    margin: 40px 0px;
+
+}
+
+.joint-button > {
+    height: 40px;
+}
+
+.joint-button > :first-child {
+    border-radius: 5px 0px 0px 5px;
+    background-color: #60AF7B;
+}
+
+.joint-button > :last-child {
+    border-radius: 0px 5px 5px 0px;
+    outline: 0;
+    border: 1px solid #60AF7B;
+    border-left: none;
+    width: 473px;
+}
+
+.joint-button > :last-child:hover {
+    border-color: #4b8660;
+}
+
+.joint-button > :first-child:hover {
+    background-color: #4b8660;
+}
+
 
 .meetingNumberInput:focus {
     outline:none;
+}
+
+.pre-join-content {
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: white;
+    color: #2B3234;
+    justify-content: center;
+}
+
+.front-content {
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: white;
+    color: #2B3234;
+}
+
+.front-footer {
+    height: 150px;
+    background-color: #BFC8CB;
+}
+
+.front-header {
+    height: 190px;
+    background-color: #2B3234;
+    color: white;
+    background-position-y: -252.2px;
+    background-position-x: -226px;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-fill {
+    display: flex;
+    flex: 1;
+}
+
+.joint-button > :first-child {
+    border-radius: 5px 0px 0px 5px;
+    background-color: #60AF7B;
+}
+
+.joint-button > :last-child {
+    border-radius: 0px 5px 5px 0px;
+    outline: 0;
+    border: 1px solid #60AF7B;
+    border-left: none;
+    width: 473px;
+}
+
+.joint-button > :last-child:hover {
+    border-color: #4b8660;
+}
+
+.joint-button > :first-child:hover {
+    background-color: #4b8660;
+}
+
+.button {
+    border-radius: 5px;
+    background-color: #60AF7B;
+    transition: border-color 100ms ease-in-out, 
+
+}
+
+.is-fill {
+    width: 100%;
+}
+
+.button.is-link {
+    background-color: white;
+    color: #60AF7B;
+    border: 1px solid #60AF7B;
+}
+
+.button.is-link:hover, .button.is-link:focus {
+    color: #4b8660;
+    border: 1px solid #4b8660;
+    background-color: white;
+}
+
+.button.is-wide {
+    width: 15rem;
+}
+
+button:focus, button:hover {
+    background-color: #4b8660;
+}
+
+.field {
+    margin-bottom: 2rem;
+}
+
+.field.is-inline {
+    display: flex;
+}
+
+.field.is-inline > .label {
+    margin-bottom: 0;
+}
+
+.field.is-inline > label {
+    margin-right: 0.75rem;
+}
+
+.field.is-inline > :last-child {
+    margin-right: 0;
+}
+
+.control {
+    box-sizing: border-box;
+    clear: both;
+    font-size: 1rem;
+    position: relative;
+    text-align: inherit;
+}
+
+.label {
+    margin-bottom: 1em;
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.label.is-small {
+    font-size: 0.9rem;;
+}
+.field.is-group > * {
+    margin-right: 1rem;
+}
+
+.field.is-group > :last-child {
+    margin-right: 0;
+}
+
+.field.is-group {
+    display: flex;
+}
+
+
+.input.is-center-text {
+    text-align: center;
+}
+
+.input.is-small {
+    font-size: 0.9rem;
+}
+
+.input {
+    border-radius: 5px;
+    border: 1px solid #60AF7B;
+    box-sizing: border-box;
+    color:#2B3234;
+    font-weight: 200;
+    outline: 0;
+}
+
+
+
+.input.is-fill {
+    width: 100%;
+}
+
+.input:hover {
+    border-color: #4b8660;
+}
+
+.input:active, .input:focus {
+    border-color: #4b8660;
+    box-shadow: 0 0 0 0.125em rgba(32, 112, 42, 0.25);
+}
+
+.input:disabled, .input:disabled:hover, .readonly-div, .readonly-div:hover {
+    border-color: #a2a2a2;
+    color:#a2a2a2;
+    background: white;
+    font-weight: 200;
+
+}
+
+.input::placeholder  {
+    font-weight: 300;
+    color: #a2a2a2;
+    font-size: 0.9em;
 }

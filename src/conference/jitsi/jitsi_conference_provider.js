@@ -146,6 +146,7 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
 
     join(joinInfo) {
         this.roomName = joinInfo.roomName;
+        this.localUsername = joinInfo.username;
         JitsiMeetJS.init(initOptions);
 
         this.connection = new JitsiMeetJS.JitsiConnection(null, null, options);
@@ -208,12 +209,11 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
             JitsiMeetJS.events.conference.CONFERENCE_JOINED,
             () => {
                 this.conferenceHandler.onConferenceJoined(this.room.myUserId())
-                this.conferenceHandler.onUserJoined(this.room.myUserId());
+                this.conferenceHandler.onUserJoined(this.room.myUserId(), this.localUsername);
             });
 
         this.room.on(JitsiMeetJS.events.conference.USER_JOINED, (id, user) => {
-            this.conferenceHandler.onUserJoined(id);
-
+            this.conferenceHandler.onUserJoined(id, user.getDisplayName());
             this.remoteTracks[id] = [];
         });
 
@@ -251,6 +251,7 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
         this.room.on(
             JitsiMeetJS.events.conference.TRACK_AUDIO_LEVEL_CHANGED,
             (userID, audioLevel) => console.log(`${userID} - ${audioLevel}`));
+        this.room.setDisplayName(this.localUsername);
 
         this.room.join();
     }

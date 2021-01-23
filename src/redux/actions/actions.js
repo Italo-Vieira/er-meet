@@ -140,3 +140,24 @@ export const partListToggled = (status) => ({
     type: actionTypes.PART_LIST_TOGGLED,
     status
 })
+
+export const conferenceIdSet = (conferenceId) => ({
+    type: actionTypes.CONFERENCE_ID_SET,
+    payload: {
+        conferenceId,
+    }
+
+})
+
+export const preJoinCompleted = () => ({
+    type: actionTypes.PRE_JOIN_COMPLETED,
+    payload: {
+    }
+})
+
+export const localUserNameChanged = (username) => ({
+    type: actionTypes.LOCAL_USER_NAME_CHANGED,
+    user: {
+        username,
+    }
+})

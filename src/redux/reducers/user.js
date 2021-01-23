@@ -60,7 +60,8 @@ const focused = (state = {}, action) => {
 const me = (state = {}, action) => {
     switch (action.type) {
         case types.ME_USER_CREATED:
-            return { ...state, ...action.user};
+        case types.LOCAL_USER_NAME_CHANGED:
+                return { ...state, ...action.user};
         default:
             return state;
     }
@@ -115,4 +116,8 @@ export const getFocusedMediaUser = (state) => {
 
 export const getMeUser = (state) => {
     return {...state.byId[state.me.userId], ...state.me}
+}
+
+export const getMeUsername = (state) => {
+    return state.me.username;
 }

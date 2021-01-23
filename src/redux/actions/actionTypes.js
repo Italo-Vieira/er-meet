@@ -20,3 +20,8 @@ export const CHANGE_PAGE = 'CHANGE_PAGE';
 
 /* UI events */
 export const PART_LIST_TOGGLED = 'PART_LIST_TOGGLED';
+
+ /* Conference Events */
+ export const CONFERENCE_ID_SET = "CONFERENCE_ID_SET";
+ export const PRE_JOIN_COMPLETED = "PRE_JOIN_COMPLETED"
+ export const LOCAL_USER_NAME_CHANGED = "LOCAL_USER_NAME_CHANGED"
