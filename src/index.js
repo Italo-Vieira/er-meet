@@ -18,8 +18,11 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-window.faker = () => {faker(Store)}
-//setTimeout(window.faker, 2000)
+if(process.env.REACT_APP_FAKE) {
+  window.faker = () => {faker(Store)}
+  setTimeout(window.faker, 2000)
+}
+
 
 
 // If you want your app to work offline and load faster, you can change

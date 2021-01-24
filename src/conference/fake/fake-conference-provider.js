@@ -21,10 +21,14 @@ export default class FakeConferenceProvider {
         return this._tracks[id];
     }
 
-    join() {
+    join(options) {
         console.log("test?")
-        this.conferenceHandler.onConferenceJoined("dfdf")
-        this.conferenceHandler.onUserJoined("dfdf")
+        this.conferenceHandler.onConferenceJoined("localUserId")
+        this.conferenceHandler.onUserJoined("localUserId", options.username);
+    }
+
+    async muteParticipant(userId, mute) {
+        this.conferenceHandler.onUserMuted(userId, mute);
     }
 
     leaveConference() {

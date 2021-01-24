@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FiMonitor } from 'react-icons/fi';
 import { BsMic, BsMicMute } from 'react-icons/bs';
-import './participant-row.css';
+import './participant-row.scss';
 
 export default class ParticipantRow extends Component {
     constructor(props) {
@@ -24,8 +24,11 @@ export default class ParticipantRow extends Component {
                 <FiMonitor className="userIcon"></FiMonitor>
                 <span className='userName'>{name}</span>
             </div>
-            <button data-testid={userId + "-part-row-mute"} onClick={this._onClick} className="micIcon">
-                <MuteIcon className="actualMicIcon"></MuteIcon>
+            <button 
+                data-testid={userId + "-part-row-mute"}
+                onClick={this._onClick} 
+                className="mic-button">
+                <MuteIcon className="mic-icon"></MuteIcon>
             </button>
         </div>;
     }

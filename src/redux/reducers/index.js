@@ -15,13 +15,20 @@ export const Reducers = combineReducers({
   conference
 });
 
-let _userStore = {};
 
-Object.values(fromUserById).map((f) => f?.name).filter( name => name.startsWith("get")).forEach((fName) => {
-  _userStore[fName] = (state, ...rest) => fromUserById[fName](state.users, ...rest)
+export const userSelectors = new Proxy(fromUserById
+  , {
+  get (receiver, name) {
+      return function(...args) {
+          let [state, ...rest] = args;
+          if(!state) {
+            throw Error("Expected Store state but found undefined, did you forget to pass the State to the selector?")
+          }
+          return (receiver[name](state.users, ...rest))
+      }
+  }
 });
 
-export const userSelectors = _userStore;
 
 export const getAllUsers = (state) => fromUserById.getAllUsers(state.users );
 

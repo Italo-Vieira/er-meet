@@ -1,5 +1,11 @@
 import JitsiConferenceProvider from './jitsi'
 import FakeConferenceProvider from './fake'
-//const conferenceProvider = new FakeConferenceProvider('')
-const conferenceProvider = new JitsiConferenceProvider();
+let conferenceProvider;
+
+if(process.env.REACT_APP_FAKE) {
+    conferenceProvider = new FakeConferenceProvider()
+} else {
+    conferenceProvider = new JitsiConferenceProvider();
+}
+
 export default conferenceProvider;

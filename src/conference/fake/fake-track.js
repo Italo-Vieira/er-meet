@@ -13,6 +13,10 @@ export default class FakeTrack {
         }
     }
 
+    detach(htmlElement) {
+        htmlElement.src = null;
+    }
+
     isVideo() {
         return true;
     }

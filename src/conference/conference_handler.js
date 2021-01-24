@@ -28,10 +28,6 @@ export default class ConferenceHandler {
         this.reduxStore.dispatch(actions.changePage('conference'));
     }
 
-    onMuteUser(userId, muteState) {
-        this.reduxStore.dispatch(actions.muteUser(userId, muteState))
-    }
-
     onUserLeft(userId) {
         this.reduxStore.dispatch(actions.userLeft(userId));
     }

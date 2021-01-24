@@ -5,9 +5,11 @@ import conferenceProvider from '../../conference';
 
 export default class ParticipantList extends React.Component {
     render() {
-        const { participantList, muteUser, isOpen } = this.props;
+        const { participantList, meUser, isOpen } = this.props;
 
-        const partRows = participantList.map(user => <ParticipantRow
+        const partRows = participantList
+            .filter(u => u.userId !== meUser.userId)
+            .map(user => <ParticipantRow
             name={user.username}
             key={user.userId}
             userId={user.userId}
@@ -21,6 +23,13 @@ export default class ParticipantList extends React.Component {
                 <span>Participants</span>:
             </div>
             <div className='partListContent'>
+                <ParticipantRow 
+                    name={meUser.username + " (me)"}
+                    key={meUser.userId}
+                    userId={meUser.userId}
+                    mute={meUser.isMicMuted}
+                    onMuteClick={() => {conferenceProvider.muteParticipant(meUser.userId, !meUser.isMicMuted)}}>
+                    </ParticipantRow>
                 {partRows}
             </div>
         </div>;

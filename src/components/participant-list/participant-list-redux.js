@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 
 const mapStateToProps = (store) => ({
         participantList: userSelectors.getConnectedUsers(store),
+        meUser: userSelectors.getMeUser(store),
         isOpen: fromReducer.getPartListState(store)
     });
 

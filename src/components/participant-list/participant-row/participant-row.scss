@@ -13,7 +13,7 @@
   }
 
 .userWindow2:hover {
-  background-color: #e3e3e3;
+  background-color: #c8c8c833;
 }
 
 .userWindow2 {
@@ -22,14 +22,26 @@
     padding-right: 1em;
     padding-top: 0.25em;
     padding-bottom: 0.25em;
+
+    span {
+      font-weight: 300;
+    }
   }
-  .micIcon {
-    display: inline-block;
-  }
-  
-  .actualMicIcon {
-    vertical-align: middle;
-    color: #ff0000;
-    width: 1.3em;
-    height: 1.3em;
-  }
+
+.mic-button {
+  display: inline-block;
+  background: none;
+  padding: 0;
+  border-radius: 5px;;
+}
+
+.mic-button:focus, .mic-button:hover {
+  background-color: #ffffff45;
+}
+
+.mic-icon {
+  vertical-align: middle;
+  color: #ff0000;
+  width: 1.3em;
+  height: 1.3em;
+}

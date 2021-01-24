@@ -18,6 +18,7 @@
     "redux-dynamic-middlewares": "^2.0.0"
   },
   "scripts": {
+    "fake": "set REACT_APP_FAKE=true && react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

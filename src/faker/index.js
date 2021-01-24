@@ -39,6 +39,9 @@ export const faker = function(Store)
     conferenceProvider._addTrack("track2", "back-loop.mp4")
     window.conf = conferenceProvider;
     console.log("checkout aqui")
-    conferenceProvider.join();
+    conferenceProvider.join({
+        roomName:"none",
+        username: "Italo Vieira"
+    });
 }
 
