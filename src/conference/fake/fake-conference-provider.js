@@ -1,8 +1,16 @@
+import ConferenceHandler from '../conference_handler';
 import FakeTrack from './fake-track';
 
 export default class FakeConferenceProvider {
     constructor(conferenceHandler) {
         this._tracks = {};
+    }
+    /**
+     * 
+     * @param {ConferenceHandler} conferenceHandler 
+     */
+    init(conferenceHandler) {
+        this.conferenceHandler = conferenceHandler;
     }
 
     _addTrack(id, videoName) {
@@ -13,11 +21,25 @@ export default class FakeConferenceProvider {
         return this._tracks[id];
     }
 
-    init() {
+    join() {
+        console.log("test?")
+        this.conferenceHandler.onConferenceJoined("dfdf")
+        this.conferenceHandler.onUserJoined("dfdf")
+    }
+
+    leaveConference() {
 
     }
 
-    join() {
+    toggleCamera() {
 
+    }
+
+    shareScreen() {
+
+    }
+
+    toggleAudio() {
+        
     }
 }

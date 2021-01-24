@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './conference-page.css';
+import './conference-page.scss';
 import ParticipantList from '../participant-list';
 import ParticipantTile from '../participant-tile';
 import TileList from '../tile-list';

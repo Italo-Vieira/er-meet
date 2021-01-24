@@ -1,14 +1,17 @@
+@import '../conference-page.scss';
+$button-height: calc(#{$bottom-bar-height} - #{$controls-padding} - #{$controls-padding});
+
 .bottomBar {
     display: flex;
-    height: 45pt;
+    height: $bottom-bar-height;
     background: #252323;
 }
 
 .leftControls{
     position: absolute;
     display: inline-flex;
-    height: 45pt;
-    padding: 5pt;
+    height: $bottom-bar-height;
+    padding: $controls-padding;
     box-sizing: border-box;
     z-index: 1;
 }
@@ -17,7 +20,7 @@
     position: relative;
     display: inline-flex;
     box-sizing: border-box;
-    padding: 5pt;
+    padding: $controls-padding;
     justify-content: center;
     width: 100%;
 }
@@ -25,7 +28,7 @@
 .rightControls {
     position: absolute;
     display: inline-flex;
-    height: 45pt;
+    height: $bottom-bar-height;
     width: 130pt;
     right: 0;
 }

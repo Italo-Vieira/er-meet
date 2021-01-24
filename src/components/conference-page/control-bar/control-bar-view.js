@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './control-bar.css';
+import './control-bar.scss';
 import { BsMic, BsDisplay, BsCameraVideo, BsPeople } from 'react-icons/bs';
 import ControlButton from './control-button';
 import conferenceProvider from '../../../conference';

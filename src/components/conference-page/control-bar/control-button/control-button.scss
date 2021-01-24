@@ -1,14 +1,22 @@
+@import '../control-bar.scss';
+
 .controlBtn {
     text-align: center;
     background: #252323;
-    border: none;
     border-radius: 5pt;
     outline: 0;
-    min-width: 40pt;
-    padding: 0pt;
-    margin: 0pt 5pt;
-    width: 65pt;
+    min-width: 55px;
+    margin: 0pt 5px;
+    height:  $button-height;
     box-sizing: border-box;
+    transition: none;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0);
+    padding: 0px 5px
 }
 
 .controlBtn:hover {
@@ -18,12 +26,13 @@
 
 .controlBtn:active {
     box-shadow: inset 0px 0px 2pt #b5b5b56b;
+    transform: none;
 }
 
 .controlBtn > svg {
     width: 100%;
-    height: 20pt;
-    margin-bottom: 2pt;
+    height: 25px;
+    margin-bottom: 5px;
 }
 
 .controlBtn:focus {

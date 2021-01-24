@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './control-button.css';
+import './control-button.scss';
 
 export default class ControlButton extends Component {
     render() {

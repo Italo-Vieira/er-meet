@@ -3,15 +3,27 @@ import * as actions from '../redux/actions'
 export default class ConferenceHandler {
     constructor(reduxStore) {
         this.reduxStore = reduxStore
+        this.dispatchActions = new Proxy(actions
+            , {
+            get (receiver, name) {
+                return function(...args) {
+                    return reduxStore.dispatch(receiver[name](...args))
+                }
+            }
+        });
     }
 
     onUserJoined(userId, username="Unnamed Maluco", isCameraMuted=true) {
+        
         // TODO: dispatch error if user id is undefined
         let user = {
             userId,
             username,
             isCameraMuted
         }
+
+
+
         this.reduxStore.dispatch(actions.userJoined(user));
         this.reduxStore.dispatch(actions.changePage('conference'));
     }
@@ -29,7 +41,7 @@ export default class ConferenceHandler {
     }
 
     onConferenceJoined(meUserId) {
-        this.reduxStore.dispatch(actions.meUserCreated(meUserId));
+        this.dispatchActions.meUserCreated(meUserId);
     }
 
     onUserSpeaking() {

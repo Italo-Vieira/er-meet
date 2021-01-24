@@ -38,5 +38,7 @@ export const faker = function(Store)
     conferenceProvider._addTrack("track1", "leek-spin.mp4")
     conferenceProvider._addTrack("track2", "back-loop.mp4")
     window.conf = conferenceProvider;
+    console.log("checkout aqui")
+    conferenceProvider.join();
 }
 

@@ -12,18 +12,21 @@
 }
 
 .participantTile.big {
-    width: calc(100% - 10pt);
-    height: calc(100vh - 135pt);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 5px;
+    margin: 0;
 }
 
 .participantTile.big video {
-    width: initial;
-}
-
-
-.participantTile.big video {
-    object-fit: contain;
-    border-radius: 5pt;
+    display: initial;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: scale-down;
 }
 
 .participantTile.big:hover {
