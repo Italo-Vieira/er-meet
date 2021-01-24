@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fontsource/nunito-sans": "^4.1.0",
+    "@fontsource/open-sans": "^4.1.0",
+    "@fontsource/roboto": "^4.1.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "framer-motion": "^3.2.2-rc.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",

@@ -11,3 +11,7 @@
     width: 100%;
     z-index: 9999;
   }
+
+  #root > div {
+    height: 100%;
+  }

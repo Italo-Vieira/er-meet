@@ -28,9 +28,12 @@
 
 .controlBtn:focus {
     border: 1px solid #ffffff4d;
+    background: none;
+    outline: 0;
 }
 
 .controlText {
     font-family: Arial;
     color: white;
+    font-size: 0.8rem;
 }

@@ -10,6 +10,7 @@ function fakeMeeting() {
     }
 }
 
+
 var userCounter = 0;
 function fakeUser() {
     userCounter = userCounter + 1
