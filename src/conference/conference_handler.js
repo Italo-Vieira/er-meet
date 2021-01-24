@@ -71,4 +71,8 @@ export default class ConferenceHandler {
     onScreenShareStopped(userId, trackId) {
         this.reduxStore.dispatch(actions.screenShareStopped(userId, trackId));
     }
+
+    onConferenceLeft() {
+        this.reduxStore.dispatch(actions.conferenceLeft())
+    }
 }

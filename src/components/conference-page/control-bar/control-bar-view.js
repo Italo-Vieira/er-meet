@@ -9,7 +9,7 @@ export default class ControlBar extends Component {
 
     render() {
         let { togglePartList, meUser } = this.props;
-
+        let endMeeting = conferenceProvider.leaveConference.bind(conferenceProvider);
         let toggleCamera = conferenceProvider.toggleCamera.bind(conferenceProvider);
         let shareScreen = conferenceProvider.shareScreen.bind(conferenceProvider);
         let toggleMic = conferenceProvider.toggleAudio.bind(conferenceProvider);
@@ -36,7 +36,7 @@ export default class ControlBar extends Component {
                 </div>
                 <div className="relative">
                     <div className="rightControls">
-                        <button className="endMeetingButton">End Meeting</button>
+                        <button onClick={endMeeting} className="endMeetingButton">End Meeting</button>
                     </div>
                 </div>
             </div>

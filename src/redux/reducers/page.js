@@ -1,4 +1,4 @@
-import { CHANGE_PAGE, CONFERENCE_ID_SET, PRE_JOIN_COMPLETED } from '../actions/actionTypes'
+import { CHANGE_PAGE, CONFERENCE_ID_SET, PRE_JOIN_COMPLETED, CONFERENCE_LEFT } from '../actions/actionTypes'
 
 const initialState = {
     currentPage: "login"
@@ -15,6 +15,9 @@ const page = (state = initialState, action) => {
             return newState;
         case PRE_JOIN_COMPLETED:
             newState.currentPage = "loading"
+            return newState;
+        case CONFERENCE_LEFT:
+            newState.currentPage = "login"
             return newState;
         default:
             return state;

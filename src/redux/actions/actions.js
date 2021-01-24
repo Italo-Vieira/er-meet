@@ -1,3 +1,4 @@
+import { act } from 'react-dom/test-utils';
 import * as actionTypes from './actionTypes';
 
 export const clickButton = value => ({
@@ -160,4 +161,8 @@ export const localUserNameChanged = (username) => ({
     user: {
         username,
     }
+})
+
+export const conferenceLeft = () => ({
+    type: actionTypes.CONFERENCE_LEFT,
 })

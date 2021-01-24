@@ -329,6 +329,12 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
         }
     }
 
+    async leaveConference() {
+        await this.room.leave();
+        console.log("leaving room")
+        this.conferenceHandler.onConferenceLeft();
+    }
+
     async _getLocalTrack(trackType) {
         let tracks = await JitsiMeetJS.createLocalTracks({ devices: [trackType] })
 
