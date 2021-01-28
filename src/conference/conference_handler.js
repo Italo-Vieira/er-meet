@@ -13,7 +13,7 @@ export default class ConferenceHandler {
         });
     }
 
-    onUserJoined(userId, username="Unnamed Maluco", isCameraMuted=true) {
+    onUserJoined(userId, username="Unnamed User", isCameraMuted=true) {
         
         // TODO: dispatch error if user id is undefined
         let user = {

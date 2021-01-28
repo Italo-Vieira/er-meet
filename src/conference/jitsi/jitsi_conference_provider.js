@@ -2,7 +2,6 @@
 import { ConferenceProvider } from '../conference_provider'
 import JitsiTrack from './jitsi-track'
 
-JitsiMeetJS && JitsiMeetJS.setLogLevel(JitsiMeetJS.logLevels.ERROR);
 
 
 const confOptions = {
@@ -138,6 +137,7 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
         this.localTracks = [];
         this._tracks = {};
         this._localCamera = undefined;
+        JitsiMeetJS && JitsiMeetJS.setLogLevel(JitsiMeetJS.logLevels.ERROR);
     }
 
     init(conferenceHandler) {

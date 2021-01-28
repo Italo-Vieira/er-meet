@@ -133,35 +133,3 @@ export default class PreJoinPage extends React.Component {
     </div>);
     }
 }
-
-
-/**
-   <h2>Configure your devices</h2>
-                        <div className="field">
-                            <label className="label">Camera:</label>
-                            <div className="control">
-                                <select className="select is-fill" type="text" placeholder="Text input">
-                                    {videoInputOptions}
-                                </select>
-                            </div>
-                        </div>
-                        <div className="field">
-                            <label className="label">Speaker:</label>
-                            <div className="control">
-                                <select className="select is-fill" type="text" placeholder="Text input">
-                                    {outputOptions || <option value="" disabled selected>Select your device</option>}
-                                </select>
-                            </div>
-                        </div>
-                        <div className="field">
-                            <label className="label">Microphone:</label>
-                            <div className="control">
-                                <select className="select is-fill" type="text" placeholder="Text input">
-                                    {inputOptions || <option value="" disabled selected>Select your device</option>}
-                                </select>
-                            </div>
-                        </div>
-                        <div className="flex-column flex-fill">
-
-                        </div>
- */

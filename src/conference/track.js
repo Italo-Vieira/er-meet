@@ -4,16 +4,12 @@ export default class Track {
     }
 
     attach(htmlElement) {
-        console.log("atachando")
         htmlElement.srcObject = this.mediaStream
         htmlElement.onloadedmetadata = (e) => {
-            console.log("playando   1")
-
             htmlElement.play();
         };
         if(this.isVideo()) {
             htmlElement.volume = 0;
-            console.log("playando")
         }
     }
 

@@ -57,3 +57,176 @@ button:focus {
 button:active {
   transform: scale(0.99);
 }
+
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-fill {
+  display: flex;
+  flex: 1;
+}
+
+.joint-button > :first-child {
+  border-radius: 5px 0px 0px 5px;
+  background-color: #60AF7B;
+}
+
+.joint-button > :last-child {
+  border-radius: 0px 5px 5px 0px;
+  outline: 0;
+  border: 1px solid #60AF7B;
+  border-left: none;
+  width: 473px;
+}
+
+.joint-button > :last-child:hover {
+  border-color: #4b8660;
+}
+
+.joint-button > :first-child:hover {
+  background-color: #4b8660;
+}
+
+.button {
+  border-radius: 5px;
+  background-color: #60AF7B;
+  transition: border-color 100ms ease-in-out, 
+
+}
+
+.is-fill {
+  width: 100%;
+}
+
+.button.is-link {
+  background-color: white;
+  color: #60AF7B;
+  border: 1px solid #60AF7B;
+}
+
+.button.is-link:hover, .button.is-link:focus {
+  color: #4b8660;
+  border: 1px solid #4b8660;
+  background-color: white;
+}
+
+.button.is-wide {
+  width: 15rem;
+}
+
+button:focus, button:hover {
+  background-color: #4b8660;
+}
+
+.field {
+  margin-bottom: 2rem;
+}
+
+.field.is-inline {
+  display: flex;
+}
+
+.field.is-inline > .label {
+  margin-bottom: 0;
+}
+
+.field.is-inline > label {
+  margin-right: 0.75rem;
+}
+
+.field.is-inline > :last-child {
+  margin-right: 0;
+}
+
+.help {
+  display: block;
+  font-size: 0.8em;
+  height: 1em;
+}
+
+.help.is-error {
+  color: #f17d71;
+  margin-top: 0.3em;
+}
+
+.control {
+  box-sizing: border-box;
+  clear: both;
+  font-size: 1rem;
+  position: relative;
+  text-align: inherit;
+}
+
+.label {
+  margin-bottom: 1em;
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.label.is-small {
+  font-size: 0.9rem;;
+}
+.field.is-group > * {
+  margin-right: 1rem;
+}
+
+.field.is-group > :last-child {
+  margin-right: 0;
+}
+
+.field.is-group {
+  display: flex;
+}
+
+
+.input.is-center-text {
+  text-align: center;
+}
+
+.input.is-small {
+  font-size: 0.9rem;
+}
+
+.input {
+  border-radius: 5px;
+  border: 1px solid #60AF7B;
+  box-sizing: border-box;
+  color:#2B3234;
+  font-weight: 200;
+  outline: 0;
+}
+
+.input.is-fill {
+  width: 100%;
+}
+
+.input:hover {
+  border-color: #4b8660;
+}
+
+.input:active, .input:focus {
+  border-color: #4b8660;
+  box-shadow: 0 0 0 0.125em rgba(32, 112, 42, 0.25);
+}
+
+.input:disabled, .input:disabled:hover, .readonly-div, .readonly-div:hover {
+  border-color: #a2a2a2;
+  color:#a2a2a2;
+  background: white;
+  font-weight: 200;
+
+}
+
+.input::placeholder  {
+  font-weight: 300;
+  color: #a2a2a2;
+  font-size: 0.9em;
+}

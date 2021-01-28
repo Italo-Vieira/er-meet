@@ -11,11 +11,12 @@ input, select, .readonly-div {
     font-weight: 200;
     font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Helvetica, sans-serif;
 }
+
 h2 {
     margin-bottom: 2em;
     font-weight: 700;
 }
-h1, p, input, span, button, div, a, .label, .input, option, .readonly-div {
+h1, p, input, span, button, div, a, .label, .input, option, .readonly-div, li {
     font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, Helvetica, sans-serif;
     font-weight: 400;
 }
@@ -25,7 +26,8 @@ h1 {
 }
 
 p {
-    font-size: 1.5em
+    font-size: 1.5em;
+    margin-bottom: 2em;
 }
 
 .lading-page {
@@ -60,8 +62,6 @@ p {
 
 .joint-button {
     display: flex;
-    margin: 40px 0px;
-
 }
 
 .joint-button > {
@@ -213,6 +213,17 @@ button:focus, button:hover {
     margin-right: 0;
 }
 
+.help {
+    display: block;
+    font-size: 0.8em;
+    height: 1em;
+}
+
+.help.is-error {
+    color: #f17d71;
+    margin-top: 0.3em;
+}
+
 .control {
     box-sizing: border-box;
     clear: both;
@@ -259,8 +270,6 @@ button:focus, button:hover {
     font-weight: 200;
     outline: 0;
 }
-
-
 
 .input.is-fill {
     width: 100%;

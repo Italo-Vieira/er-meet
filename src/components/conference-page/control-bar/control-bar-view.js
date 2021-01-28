@@ -4,6 +4,7 @@ import { BsMic, BsDisplay, BsCameraVideo, BsPeople } from 'react-icons/bs';
 import ControlButton from './control-button';
 import conferenceProvider from '../../../conference';
 import ToggleButton from './toggle-button';
+import DeviceSelector from '../device-selector';
 
 export default class ControlBar extends Component {
 
@@ -17,10 +18,10 @@ export default class ControlBar extends Component {
             <div className="bottomBar">
                 <div className="relative">
                     <div className="leftControls">
-                        <ToggleButton text="Mute" onClick={toggleMic} isToggled={meUser.isMicMuted}>
+                        <ToggleButton moreMenu={<DeviceSelector></DeviceSelector>} text="Mute" onClick={toggleMic} isToggled={meUser.isMicMuted}>
                             <BsMic className="cameraIcon" />
                         </ToggleButton>
-                        <ToggleButton onClick={toggleCamera} text="Camera" isToggled={meUser.isCameraMuted}>
+                        <ToggleButton moreMenu={<DeviceSelector></DeviceSelector>} onClick={toggleCamera} text="Camera" isToggled={meUser.isCameraMuted}>
                             <BsCameraVideo className="cameraIcon" />
                         </ToggleButton>
                     </div>

@@ -4,12 +4,13 @@ import './toggle-button.css'
 
 export default class ToggleButton extends Component {
     render() {
-        let { text, onClick, isToggled } = this.props;
+        let { text, onClick, isToggled, moreMenu } = this.props;
         let redSlash = isToggled ? <div className="redSlash"></div> : null;
         return (
-            <ControlButton text={text} onClick={onClick}> 
+            <ControlButton moreMenu={moreMenu} text={text} onClick={onClick}> 
                 {this.props.children}
                 {redSlash}
+                
             </ControlButton>
         );
     }

@@ -41,8 +41,48 @@
     outline: 0;
 }
 
+.controlBtn.has-more {
+    min-width: 74px;
+}
+
 .controlText {
     font-family: Arial;
     color: white;
     font-size: 0.8rem;
+}
+.more:hover {
+    background: #ffffff29;
+}
+
+.more:hover + .controlBtn {
+    background: none;
+}
+
+.more {
+    color: white;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    position: absolute;
+    width: 15px;
+    height: 35px;
+    overflow: hidden;
+    right: 8px;
+    top: 3px;
+    background: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+}
+
+.control-arrow {
+    display: none;
+}
+
+
+.force-left-content {
+    top: initial !important;
+    bottom: 72px !important;
+    left: 5px !important;
 }

@@ -46,4 +46,25 @@ export default class FakeConferenceProvider {
     toggleAudio() {
         
     }
+
+    getActiveAudioOutputDevice() {
+        return {
+            deviceId: "KSJDSDLKSJDLKJ",
+            lable: "Hey ow "
+        }
+    }
+
+    getActiveAudioInputDevice() {
+        return {
+            deviceId: "KSJDSDLKSJDLKJ",
+            lable: "Hey ow "
+        }
+    }
+
+    getActiveVideoInputDevice() {
+        return {
+            deviceId: "KSJDSDLKSJDLKJ",
+            lable: "Hey ow "
+        }
+    }
 }
