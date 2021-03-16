@@ -359,6 +359,23 @@ export default class JitsiConferenceProvider extends ConferenceProvider {
 
         return localTrack;
     }
+    
+    async setActiveAudioOutput(deviceId) {
+        JitsiMeetJS.mediaDevices.setAudioOutputDevice(deviceId);
+    }
+
+    getActiveAudioOutputDevice() {
+        console.log("current ouput device", JitsiMeetJS.mediaDevices.getAudioOutputDevice())
+        return JitsiMeetJS.mediaDevices.getAudioOutputDevice() || 'default';
+    }
+
+    getActiveAudioInputDevice() {
+        return this._localMic?.deviceId || '';
+    }
+
+    getActiveVideoInputDevice() {
+        return this._localCamera?.deviceId || '';
+    }
 
     _freeDesktopTrack() {
         try {

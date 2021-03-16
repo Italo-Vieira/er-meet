@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './device-selector.scss'
 import ListSelector from '../../list-selector'
+import conferenceProvider from '../../../conference'
+import { conferenceIdSet } from '../../../redux/actions';
 
 export default class DeviceSelector extends Component {
     constructor(props) {
@@ -33,15 +35,16 @@ export default class DeviceSelector extends Component {
         let inputOptions = audioInputDevices.map(deviceToOption)
         let outputOptions = audioOutputDevice.map(deviceToOption)
         let videoInputOptions = videoInputDevices.map(deviceToOption)
+        console.log("vamos ver", conferenceProvider)
         return (
             <div className="device-selector">
-                <ListSelector title="Camera" default="default" items={videoInputOptions} onChange={console.log}>
+                <ListSelector title="Camera" default={conferenceProvider.getActiveVideoInputDevice()} items={videoInputOptions} onChange={console.log}>
                 </ListSelector>
 
-                <ListSelector title="Speaker" default="default" items={outputOptions} onChange={console.log}>
+                <ListSelector title="Speaker" default={conferenceProvider.getActiveAudioOutputDevice()} items={outputOptions} onChange={conferenceProvider.setActiveAudioOutput}>
                 </ListSelector>
 
-                <ListSelector title="Microphone" default="default" items={inputOptions} onChange={console.log}>
+                <ListSelector title="Microphone" default={conferenceProvider.getActiveAudioInputDevice()} items={inputOptions} onChange={console.log}>
                 </ListSelector>
             </div>
         );
